@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import './ProductDisplay.css';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
 
-const ProductDisplay = () => {
+const ProductDisplay = ({images}) => {
   const productImages = [
     image,
     image2,
@@ -19,7 +19,7 @@ const ProductDisplay = () => {
     image,
     // Add more images if necessary
   ];
-  
+  console.log(images)
  
 
 
@@ -57,6 +57,13 @@ const ProductDisplay = () => {
   
 
   return (
+    // <div className="product-display">
+    //   {isSliderOpen && <ImageSlider pictures={productImages} onClose={closeSlider} />}
+    //   <div className="small-images">{renderSmallImages()}</div>
+    //   <div className="big-image">
+    //     <img src={'http//localhost:8000/images/'+images&&images[0].image_path} onClick={openSlider} alt="Big Image" />
+    //   </div>
+    // </div>
     <div className="product-display">
       {isSliderOpen && <ImageSlider pictures={productImages} onClose={closeSlider} />}
       <div className="small-images">{renderSmallImages()}</div>

@@ -6,21 +6,80 @@ import {AiFillStar,AiOutlineHeart} from 'react-icons/ai'
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import FilterSlider from '../../components/FilterSlider/FilterSlider';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getSingleProduct } from '../../Provider/Features/Product/productSlice';
+import ImageGallery from 'react-image-gallery';
+import 'react-image-gallery/styles/css/image-gallery.css';
+
+const images = [
+    {
+      original: 'https://picsum.photos/id/1018/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1015/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1019/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1018/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1015/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1019/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1018/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1015/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    },
+    {
+      original: 'https://picsum.photos/id/1019/1000/600/',
+      thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    },
+  ];
+
 const SingleProduct = () => {
     const popular=[1,2,3,4] 
+    const {id}=useParams()
+    const {isError,isLoading,isSuccess,message,singleProduct} = useSelector((state) => state.product);
+    const dispatch=useDispatch()
+    useEffect(()=>{
+        dispatch(getSingleProduct(id))
+    },[])
+    console.log(id)
+    console.log(singleProduct)
     const [commentOpen,setCommentOpen]=useState(false)
     const triggerComment=()=>{
         setCommentOpen(!commentOpen)
     }
+
+
+
+    
     return ( 
         <div className='signle-product-container'>
-            <div className="single-product-grid-container">
-                <div className="single-product-grid-item">
-                    <ProductDisplay/>
+            <div className="single-product-flex-container">
+                <div className="single-product-grid-item w-50">
+                    {/* <ProductDisplay images={singleProduct&&singleProduct.images}/> */}
+                    <ImageGallery items={images} />
                     <SectionTitle title='CUSTOMER REVIEWS'/>
                 </div>
                 <div className="single-product-grid-item">
-                    <div className='signle-product-title'>Striped Flutter Sleeve Overlap Collar Pepum Hem Blouse</div>
+                    <div className='signle-product-title'>{singleProduct&&singleProduct.name}</div>
                     <div className='signle-product-title-review'>
                         <div className='signle-product-title-review-stars'>
                             <AiFillStar/>
@@ -35,8 +94,8 @@ const SingleProduct = () => {
                         </div>
                     </div>
                     <div class="signle-product-pricing">
-                        <span class="signle-product-new-price">MAD150</span>
-                        <span class="signle-product-old-price">MAD200</span>
+                        <span class="signle-product-new-price">{`${singleProduct&&singleProduct.price}MAD`}</span>
+                        {/* <span class="signle-product-old-price">MAD200</span> */}
                     </div>
                     <div className='signle-product-sold'>
                         <span>42 </span>
@@ -141,16 +200,14 @@ const SingleProduct = () => {
                 </div>
                 <div className="single-product-grid-item">
                     <b>About </b>
-                    <p>- Hand wash only and other care instructions</p>
-                    <p>- Hand wash only and other care  are on the care label</p>
-                    <p>- Hand wash only and other care instructions are instructions on the care label</p>
-                    <p>- Hand wash only and other are on the care label</p>
+                    <p>{singleProduct&&singleProduct.description}</p>
                 </div>
             </div>
             <SectionTitle title='YOU MAY LIKE'/>
             <div className='popular-items'>
                 {popular.map((e,i)=>(
-                    <ProductCard/>
+                    // <ProductCard/>
+                    <div>asdf</div>
                 ))}
             </div>
         </div>

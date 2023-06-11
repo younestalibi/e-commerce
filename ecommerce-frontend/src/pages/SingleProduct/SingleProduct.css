@@ -4,8 +4,15 @@
 }
 .single-product-grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two columns with equal width */
-    gap:50px;
+    grid-template-columns: 1fr 1fr; /*Two columns with equal width*/
+    gap:30px;
+}
+.single-product-flex-container {
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr; Two columns with equal width */
+    display: flex;
+
+    gap:30px;
 }
   
 .single-product-grid-item {

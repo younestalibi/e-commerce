@@ -1,10 +1,15 @@
 import React from 'react';
 import './ProductCard.css';
 import image from '../../assets/img.png'
+import { useNavigate } from 'react-router-dom';
 const ProductCard = (props) => {
 const {product}=props
+const navigate=useNavigate()
+const handleSelect=()=>{
+  navigate(`/products/${product.slug}/${product.id}`)
+}
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={handleSelect}>
       <img src={`${import.meta.env.VITE_SERVER_URL}/storage/${product.images[0].image_path}`} alt={'product.title'} className="product-image" />
       <div>
       <h2 className="product-title">{product.name}</h2>

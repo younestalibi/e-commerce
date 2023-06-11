@@ -8,6 +8,8 @@ import './FromProduct.css'
 import { createProduct, getSingleProduct, resetStateProduct, updateProduct } from '../../../Provider/Features/Product/productSlice';
 
 
+
+
 function FromProduct() {
   const {id}=useParams()
   const isEdite=!!id
@@ -116,7 +118,6 @@ function FromProduct() {
 
 
     };
-
 
   const fileInputRef = useRef(null);
 
