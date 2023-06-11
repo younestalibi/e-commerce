@@ -1,0 +1,90 @@
+.search-products-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Three columns on the right, one column on the left */
+    /* grid-gap: 10px; Adjust the gap between columns as needed */
+  }
+  
+  .left-column {
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    background-color: #f1f1f1;
+    height: 100vh;
+    /* Add any other styles you want for the fixed left column */
+  }
+  
+  .right-column {
+    /* Add styles for the right columns */
+    /* height: 1000px; */
+    /* background-color: yellow; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 20px;
+    margin: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    
+  }
+
+.product-card {
+  width: calc(33.3333% - 20px);
+}
+.search-Product-top{
+  display: flex;
+  justify-content: space-between;
+  /* background-color: royalblue; */
+  padding: 25px 0px;
+
+}
+.search-Product-top div:first-child {
+  display: flex;
+  justify-content: space-around;
+  /* background-color: greenyellow; */
+  /* width: ; */
+}
+.search-Product-top div:first-child span{
+  color: rgba(0, 0, 0, 0.61);
+}
+.search-Product-top div:last-child {
+  display: flex;
+  justify-content: space-around;
+  /* background-color: red; */
+}
+.banner-products-search{
+  position: relative;
+}
+.banner-products-search img{
+  width: 100%;
+  object-fit: cover;
+  height:30%;
+  background-color: black;
+}
+.banner-products-search .banner-products-search-div{
+  position: absolute;
+  top:30%;
+  padding-left: 10px ;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  /* background-color: blue; */
+}
+.banner-products-search .banner-products-search-div div{
+  color: rgba(255, 255, 255, 0.733);
+}
+.search-products-filter b{
+  /* background-color: blue; */
+}
+
+.search-products-filter div{
+  margin-top: 10px;
+  /* background-color: yellow; */
+  display:flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  text-align: left;
+}
+.search-products-filter div input{
+  margin-right: 25px;
+}

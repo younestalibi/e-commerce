@@ -1,0 +1,21 @@
+
+.header-container{
+    display: flex;
+    background-color: #DCDCDC;
+    justify-content: space-between;
+    padding: 5px 0px;
+}
+.header-title{
+    font-weight: 600;
+    padding-left: 5px;
+}
+.header-menu{
+    display: flex;
+    /* padding-right: 18px; */
+    width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+    max-width: 150px;
+    justify-content: space-between;
+    align-items: center;
+}

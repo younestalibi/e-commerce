@@ -1,0 +1,41 @@
+
+.menu-container ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f7f4f4;
+    /* background-color: red; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu-container li a {
+    display: block;
+    color: rgb(37, 35, 70);
+    text-align: center;
+    padding: 10px 0px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.menu-container li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-container li .active{
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+}
+.menu-container li span{
+    background-color: rgb(248, 31, 85);
+    padding: 10px;
+    border-radius: 5px;
+    height: 10px;
+    margin-left: 18px;
+    font-weight: bolder;
+    color: white;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

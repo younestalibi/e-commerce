@@ -1,0 +1,225 @@
+/* ///////////////////////// nav ///////////////////////// */
+.OrderComplete-page-nav{
+    background-color: rgb(244, 244, 244);
+    height: 100px;
+}
+
+.OrderComplete-page-shopping-cart-icon{
+    display: inline-block;
+	height: 30px;
+	width: 30px;
+    background-color: #ffe5d2a4;
+	text-align: center;
+	line-height: 34px;
+	border-radius: 50%;
+	color: #E98B44;
+    margin-top: 35px;
+    margin-left: 370px;
+}
+
+.OrderComplete-page-shopping-cart-text{
+    margin-left: 10px;
+    color: #E98B44;
+}
+
+.OrderComplete-page-line1{
+    color: #E98B44;
+    margin-left: 20px;
+    padding-bottom: 20px;
+}
+
+.OrderComplete-page-line2{
+    color: #E98B44;
+    margin-left: 20px;
+    padding-bottom: 20px;
+    opacity: 0.1;
+}
+
+.OrderComplete-page-checkout-icon{
+    display: inline-block;
+	height: 30px;
+	width: 30px;
+	background-color: #ffe5d2a4;
+	text-align: center;
+	line-height: 34px;
+	border-radius: 50%;
+	color: #E98B44;
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.OrderComplete-page-checkout-text{
+    margin-left: 10px;
+    color: #E98B44;
+}
+
+.OrderComplete-page-order-complete-icon{
+    display: inline-block;
+	height: 30px;
+	width: 30px;
+	background-color: #E98B44;
+	text-align: center;
+	line-height: 34px;
+	border-radius: 50%;
+	color: #ffffff;
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.OrderComplete-page-order-complete-text{
+    margin-left: 10px;
+    color: black;
+}
+
+/* /////////////////////////////////// container //////////////////////////////////////// */
+.OrderComplete-page-container{
+    margin: 32px 25px 32px 25px;
+}
+
+.OrderComplete-page-div-1{
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.OrderComplete-page-div-1-icon{
+	height: 15px;
+	width: 15px;
+    background-color: #E98B44;
+	text-align: center;
+	line-height: 17.1px;
+	border-radius: 50%;
+	color: white;
+    font-size: 10px;
+    position: absolute;
+    right: 38px;
+}
+
+.OrderComplete-page-div-1-paid{
+    position: absolute;
+    right: 0;
+    text-align: right;
+    color: #E98B44;
+}
+
+.OrderComplete-page-div-1-line{
+    opacity: 0.05;
+}
+
+.OrderComplete-page-div-2-product{
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.OrderComplete-page-div-2-product-img{
+    width: 50px;
+}
+
+.OrderComplete-page-div-2-product-text{
+    opacity: 0.6;
+    margin-left: 16px;
+    margin-right: 250px;
+}
+
+.OrderComplete-page-div-2-product-buttons-plusminus{
+    background-color: transparent;
+    border: 2px solid white;
+    color: #000;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.OrderComplete-page-div-2-product-numberElement{
+    background-color: rgb(240, 240, 240);
+    padding: 10px 15px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    border-radius: 17%;
+}
+
+.OrderComplete-page-div-2-product-forNItem{
+    padding-left: 400px;
+}
+
+.OrderComplete-page-div-3{
+    position: relative;
+    margin-top: 24px;
+}
+
+.OrderComplete-page-div-3-total-money{
+    position: absolute;
+    right: 0;
+    text-align: right;
+    color: red;
+    font-size: 20px;
+}
+
+.OrderComplete-page-div-4{
+    display: flex;
+}
+
+.OrderComplete-page-div-4-leftDiv{
+    margin-right: 64px;
+    margin-top: 24px;
+    position: relative;
+    width: 690px;
+}
+
+.OrderComplete-page-div-4-leftDiv-textLeft{
+    opacity: 0.4;
+}
+
+.OrderComplete-page-div-4-leftDiv-textRight{
+    position: absolute;
+    right: 0;
+    text-align: right;
+}
+
+.OrderComplete-page-div-4-leftDiv-divs{
+    margin-bottom: 24px;
+}
+
+.OrderComplete-page-div-4-rightDiv{
+    margin-top: 24px;
+    position: relative;
+    width: 690px;
+}
+
+.OrderComplete-page-div-4-rightDev-totalDiv{
+    margin-top: 24px;
+    margin-bottom: 4px;
+}
+
+.OrderComplete-page-div-5{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.OrderComplete-page-div-6{
+    opacity: 0.5;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.OrderComplete-page-div-7-button{
+    background-color: #E98B44;
+    border-radius: 80px;
+    border-style: none;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 590;
+    padding: 10px 16px;
+    text-align: center;
+    height: 54px;
+    margin-top: 20px;
+    width: 100%;
+    width: 150px;
+
+}
+
+.OrderComplete-page-div-7{
+    text-align: center; 
+}

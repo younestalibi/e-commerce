@@ -1,0 +1,58 @@
+.highlight-container{
+    margin-top: 70px;
+}
+
+.highlight-container hr{
+    width: 70px;
+    font-weight: bolder;
+    border: 2px solid black;
+    border-radius: 400px;
+    margin: auto;
+    margin-bottom: 25px;
+}
+.hightlight-title{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-weight: bolder;
+    font-size: 50px;
+    color: white;
+}
+.highlights-images{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.highlight{
+    /* border: 2px solid white; */
+    height: 450px;
+    /* box-sizing: border-box; */
+    position: relative;
+
+}
+.highlight img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.highlight-box{
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white;
+}
+.highlight-box{
+
+}
+.column-20 {
+width:calc(30% - 10px);
+}
+.column-80 {
+width:calc(70% - 10px);
+}

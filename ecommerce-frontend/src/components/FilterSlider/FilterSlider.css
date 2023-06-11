@@ -1,0 +1,17 @@
+.slider {
+    position: relative;
+    height: 5px;
+    background: #ddd;
+  }
+  
+  .thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #4CAF50;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  

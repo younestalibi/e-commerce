@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+	box-sizing: border-box;
+}
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+
+}
+
+a {
+	margin: 0 5px;
+	color: #eee;
+	text-decoration: none;
+}
+
+a:hover {
+	color: rgb(25, 194, 186);
+}
+.App{
+	
+	margin: auto;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body{
+  font-family: 'Roboto', sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+:root {
+  --color-212529: #212529;
+  --color-47ad24: #47ad24;
+  --color-828599: #828599;
+  --color-3d464d: #ed464d;
+}
