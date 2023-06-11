@@ -7,7 +7,7 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import FilterSlider from '../../components/FilterSlider/FilterSlider';
 import { useState } from 'react';
 const SingleProduct = () => {
-    const popular=[1,2,3,4]
+    const popular=[1,2,3,4] 
     const [commentOpen,setCommentOpen]=useState(false)
     const triggerComment=()=>{
         setCommentOpen(!commentOpen)

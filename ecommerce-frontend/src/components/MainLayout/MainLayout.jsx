@@ -10,7 +10,7 @@ import {
 import { RiCouponLine } from "react-icons/ri";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { ImBlog } from "react-icons/im";
 import { IoIosNotifications } from "react-icons/io";
@@ -19,10 +19,21 @@ import { SiBrandfolder } from "react-icons/si";
 import { BiCategoryAlt } from "react-icons/bi";
 import { Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { logout } from "../../Provider/Features/Auth/authSlice";
 const { Header, Sider, Content } = Layout;
 const MainLayout = () => {
+  const location = useLocation();
+  const dispatch=useDispatch()
   const { user, isError, isSuccess, isLoading, message} = useSelector((state) => state.auth);
+  useEffect(() => {
+    console.log(isSuccess,user)
+    // alert('hi')
+    if (!user) {
+      navigate("/");
+    } 
+  }, [location]);
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -44,11 +55,11 @@ const MainLayout = () => {
                   width={40}
                   height={40}
                   className="rounded-circle"
-                  src="https://avatars.githubusercontent.com/u/118536564?v=4"
+                  src={`${import.meta.env.VITE_SERVER_URL}/images/${user&&user.image}`} 
                   alt=""
                 />
               </div>
-            <span className="lg-header-sidebar">Younes Talibi</span>
+            <span className="lg-header-sidebar">{user&&user.name}</span>
           </h2>
         </div>
         <Menu
@@ -207,7 +218,7 @@ const MainLayout = () => {
                   width={40}
                   height={40}
                   className="rounded-circle"
-                  src="https://avatars.githubusercontent.com/u/118536564?v=4"
+                  src={`${import.meta.env.VITE_SERVER_URL}/images/${user&&user.image}`} 
                   alt="profile image"
                 />
               </div>
@@ -227,7 +238,7 @@ const MainLayout = () => {
                     style={{ height: "auto", lineHeight: "20px" }}
                     to="/"
                   >
-                    View Profile
+                    Home
                   </Link>
                 </li>
                 <li>
@@ -235,6 +246,7 @@ const MainLayout = () => {
                     className="dropdown-item py-1 mb-1"
                     style={{ height: "auto", lineHeight: "20px" }}
                     to="/"
+                    onClick={()=>{dispatch(logout())}}
                   >
                     Signout
                   </Link>

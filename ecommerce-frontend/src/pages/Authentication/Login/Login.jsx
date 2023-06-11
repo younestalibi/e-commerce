@@ -7,13 +7,11 @@ const Login = () => {
   const navigate=useNavigate()
   const { user, isError, isSuccess, isLoading, message} = useSelector((state) => state.auth);
   useEffect(() => {
+    console.log(isSuccess,user)
     if (isSuccess && user) {
-      navigate("/admin");
-    } else {
       navigate("/");
-    }
-  }, [user, isError, isSuccess, isLoading]);
-
+    } 
+  }, [isSuccess,user]);
   const dispatch=useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,9 +35,11 @@ const Login = () => {
               type="email"
               id="email"
               value={email}
+              className={`${message.email&&'is-invalid'} `}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            {isError&&<span className='text-danger invalid-feedback'>{message.email}</span>}
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -47,9 +47,11 @@ const Login = () => {
               type="password"
               id="password"
               value={password}
+              className={`${message.password&&'is-invalid'} `}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {isError&&<span className='invalid-feedback'>{message.password}</span>}
           </div>
           <button type="submit" className="btn-login">Login</button>
         </form>

@@ -8,8 +8,12 @@ const login = async (user) => {
   if (response.data) {
     localStorage.setItem("user", JSON.stringify(response.data.token));
   }
-  console.log(response.data)
   return response.data;
+};
+const logout = async () => {
+  const response = await axiosHttp.post(`${base_url}/logout`);
+  localStorage.removeItem("user");
+  return null;
 };
 const getUser = async (user) => {
   const response = await axiosHttp.get(`${base_url}/user`);
@@ -35,6 +39,7 @@ const authService = {
   getUser,
   getOrders,
   getOrder,
+  logout
 };
 
 export default authService;

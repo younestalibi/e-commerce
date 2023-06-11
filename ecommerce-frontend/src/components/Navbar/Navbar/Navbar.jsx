@@ -4,13 +4,14 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import {GoSearch} from 'react-icons/go'
 import {BsBagCheck} from 'react-icons/bs'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../Provider/Features/Auth/authSlice";
 
 function Navbar() {
     const { user, isError, isSuccess, isLoading, message} = useSelector((state) => state.auth);
 	const navRef = useRef();
     const [search,setSearch]=useState('')
-
+    const dispatch=useDispatch()
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
 			"responsive_nav"
@@ -59,7 +60,7 @@ function Navbar() {
                     Basket <BsBagCheck/>
                 </Link>
                 {
-                    Boolean(user.name)?
+                    user?
                     <>
                     <Link className='nav-link' to="/">
                     <img 
@@ -85,7 +86,7 @@ function Navbar() {
                         <Link
                             className="dropdown-item py-1 mb-1"
                             style={{ height: "auto", lineHeight: "20px" }}
-                            to="/"
+                            to="/admin"
                         >
                             View Profile
                         </Link>
@@ -94,7 +95,8 @@ function Navbar() {
                         <Link
                             className="dropdown-item py-1 mb-1"
                             style={{ height: "auto", lineHeight: "20px" }}
-                            to="/"
+                            to="/products"
+                            onClick={()=>{dispatch(logout())}}
                         >
                             Signout
                         </Link>

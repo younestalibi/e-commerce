@@ -35,17 +35,17 @@ function App() {
 
   const dispatch=useDispatch()
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axiosHttp.get('/user');
+    // const fetchUserData =() => {
+      // try {
+        // const response = await axiosHttp.get('/user');
         dispatch(getUser());
-        console.log(response)
-      } catch (error) {
-        console.error('Failed to get user data:', error);
-      }
-    };
+        // console.log(response)
+      // } catch (error) {
+        // console.error('Failed to get user data:', error);
+      // }
+    // };
 
-    fetchUserData();
+    // fetchUserData();
   }, []);
 
   return (
@@ -60,11 +60,11 @@ function App() {
             <Route path="/order-complete" element={<OrderComplete/>}/>
             <Route path="/checkout" element={<Checkout/>}/>
 
-            <Route path="/" element={<Login />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+            
           </Route>
-          
+          <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/admin" element={<MainLayout />}>
             <Route index element={<Dashboard />} />
             {/* <Route path="enquiries" element={<Enquiries />} /> */}

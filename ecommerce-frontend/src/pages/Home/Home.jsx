@@ -42,7 +42,8 @@ const Home = () => {
                     <CenteredTitle title='THIS WEEKS HIGHLIGHTS'/>
                     <div className='popular-items'>
                         {popular.map((e,i)=>(
-                            <ProductCard/>
+                            // <ProductCard/>
+                            <div>asdfad</div>
                         ))}
                     </div>
                 </div>
