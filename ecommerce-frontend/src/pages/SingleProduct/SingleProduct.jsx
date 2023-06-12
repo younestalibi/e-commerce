@@ -14,42 +14,42 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 const images = [
-    {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1018/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1015/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1019/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1019/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1018/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1015/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1019/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1019/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1018/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1015/250/150/',
-    },
-    {
-      original: 'https://picsum.photos/id/1019/1000/600/',
-      thumbnail: 'https://picsum.photos/id/1019/250/150/',
-    },
+    // {
+    //   original: 'https://picsum.photos/id/1018/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1015/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1019/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1018/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1015/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1019/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1018/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1018/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1015/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1015/250/150/',
+    // },
+    // {
+    //   original: 'https://picsum.photos/id/1019/1000/600/',
+    //   thumbnail: 'https://picsum.photos/id/1019/250/150/',
+    // },
   ];
 
 const SingleProduct = () => {
@@ -68,14 +68,24 @@ const SingleProduct = () => {
     }
 
 
-
+// console.log(singleProduct.images)
+    if(singleProduct){
+        for (let i = 0; i < singleProduct.images.length; i++) {
+        images.push({
+        //   key: i + 1,
+          original:`${import.meta.env.VITE_SERVER_URL}/storage/${singleProduct.images[i] && singleProduct.images[i].image_path}`,
+        thumbnail:`${import.meta.env.VITE_SERVER_URL}/storage/${singleProduct.images[i] && singleProduct.images[i].image_path}`,
+        });
+      }
+    }
     
+      console.log(images)
     return ( 
         <div className='signle-product-container'>
             <div className="single-product-flex-container">
                 <div className="single-product-grid-item w-50">
                     {/* <ProductDisplay images={singleProduct&&singleProduct.images}/> */}
-                    <ImageGallery items={images} />
+                    <ImageGallery thumbnailPosition='left' items={images} />
                     <SectionTitle title='CUSTOMER REVIEWS'/>
                 </div>
                 <div className="single-product-grid-item">

@@ -14,6 +14,11 @@
 
     gap:30px;
 }
+.image-gallery-image{
+  height: 300px !important;
+  object-fit: contain;
+  /* background: black; */
+}
   
 .single-product-grid-item {
     /* background-color: #f2f2f2; */
