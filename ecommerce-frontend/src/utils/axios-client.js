@@ -1,17 +1,34 @@
-import axios from 'axios';
-const getTokenFromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
-  console.log(getTokenFromLocalStorage)
+import axios from "axios";
+
 const axiosHttp = axios.create({
-  baseURL: `http://localhost:8000/api`,
-  headers: {
-    // 'Content-Type': 'application/json',
-    'Authorization': `Bearer ${
-        getTokenFromLocalStorage !== null ? getTokenFromLocalStorage : ""
-      }`,
-      // 'Accept': "application/json",      
-  },
+  baseURL: "http://localhost:8000/api"
 });
+
+axiosHttp.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("user")
+  // ? JSON.parse(localStorage.getItem("user"))
+  // : null;
+    config.headers.Authorization = `Bearer ${token}`;
+    console.log(config)
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+axiosHttp.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    const { response } = error;
+    if (response && response.status === 401) {
+      localStorage.removeItem('user');
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default axiosHttp;

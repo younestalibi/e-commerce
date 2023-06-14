@@ -1,6 +1,15 @@
 import { Link } from 'react-router-dom';
 import './Menu.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getCategories } from '../../../Provider/Features/Category/categorySlice';
 const Menu = () => {
+    const {isSuccess,isError,isLoading,Categories,deletedCategory}= useSelector((state) => state.Category);
+    const dispatch=useDispatch()
+    useEffect(()=>{
+        dispatch(getCategories())
+    },[])
+    console.log(Categories)
     return ( 
         <div className='menu-container'>
             <ul>
@@ -8,27 +17,13 @@ const Menu = () => {
                     <Link className="active" to="#home">New Arrivals</Link>
                     <span>#Fresh</span>
                 </li>
-                <li>
-                    <Link to="#news">Bride dresses</Link>
-                </li>
-                <li>
-                    <Link to="#contact">Bride Tekchitas</Link>
-                </li>
-                <li>
-                    <Link to="#about">Caftans</Link>
-                </li>
-                <li>
-                    <Link to="#about">Dresses</Link>
-                </li>
-                <li>
-                    <Link to="#about">Tekchitas</Link>
-                </li>
-                <li>
-                    <Link to="#about">Cover-Ups</Link>
-                </li>
-                <li>
-                    <Link to="#about">Jewelries</Link>
-                </li>
+                {
+                    Categories.map((e,i)=>(
+                        <li key={i}>
+                            <Link to="#news">{e.name}</Link>
+                        </li>
+                    ))
+                }   
             </ul>
         </div>
      );

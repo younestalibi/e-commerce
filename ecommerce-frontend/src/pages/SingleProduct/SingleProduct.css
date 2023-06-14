@@ -19,7 +19,9 @@
   object-fit: contain;
   /* background: black; */
 }
-  
+.image-gallery-left-nav .image-gallery-svg, .image-gallery-right-nav .image-gallery-svg {
+  height: 55px !important;
+}
 .single-product-grid-item {
     /* background-color: #f2f2f2; */
     /* padding: 20px; */

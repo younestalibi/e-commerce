@@ -17,6 +17,7 @@ function Navbar() {
 			"responsive_nav"
 		);
 	};
+    // console.log(user)
 
 	return (
 		<header>

@@ -6,7 +6,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handleClick = (pageNumber) => {
     onPageChange(pageNumber);
   };
-  console.log(totalPages)
 
   const renderPageNumbers = () => {
     const pageNumbers = [];

@@ -5,15 +5,16 @@ import axiosHttp from "../../../utils/axios-client";
 const login = async (user) => {
     console.log('hello world')
   const response = await axiosHttp.post(`${base_url}/login`,user);
+  console.log(response)
   if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data.token));
+    localStorage.setItem("user", response.data.token);
   }
   return response.data;
 };
 const logout = async () => {
   const response = await axiosHttp.post(`${base_url}/logout`);
   localStorage.removeItem("user");
-  return null;
+  return response.data;
 };
 const getUser = async (user) => {
   const response = await axiosHttp.get(`${base_url}/user`);

@@ -29,7 +29,6 @@ const SearchProductPage = () => {
     // add more dummy products as needed
   ];
   var {products,isError,isLoading,isSuccess,message,deletedProduct} = useSelector((state) => state.product);
-  console.log(products) 
   const dispatch=useDispatch()
   useEffect(() => {
     dispatch(resetStateProduct())
@@ -38,7 +37,6 @@ const SearchProductPage = () => {
   const [currentPage, setCurrentPage] = useState();
   const [totalPages, setTotalPages] = useState();
   useEffect(()=>{
-    console.log('alert')
     if(products && isSuccess){
       setCurrentPage(products.current_page);
       setTotalPages(products.last_page);
