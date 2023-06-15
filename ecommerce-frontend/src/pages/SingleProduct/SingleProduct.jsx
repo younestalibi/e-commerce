@@ -115,6 +115,7 @@ const SingleProduct = () => {
                     <SectionTitle title='CUSTOMER REVIEWS'/>
                 </div>
                 <div className="single-product-grid-item">
+                    {/* ------------------- here a ranaaa ---------- */}
                     <div className='signle-product-title'>{singleProduct&&singleProduct.name}</div>
                     <div className='signle-product-title-review'>
                         <div className='signle-product-title-review-stars'>
@@ -140,6 +141,7 @@ const SingleProduct = () => {
                     {/* <div>
                         <b>About this item</b>
                     </div> */}
+                    {/* ------------------- here a ranaaa ---------- */}
                 </div>
             </div>
             <div className="single-product-grid-container">
