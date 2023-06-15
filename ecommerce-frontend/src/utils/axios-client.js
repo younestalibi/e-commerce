@@ -10,7 +10,6 @@ axiosHttp.interceptors.request.use(
   // ? JSON.parse(localStorage.getItem("user"))
   // : null;
     config.headers.Authorization = `Bearer ${token}`;
-    console.log(config)
     return config;
   },
   (error) => {

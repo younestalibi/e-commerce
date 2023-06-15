@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
 
-    Route::get('/comments', [CommentController::class, 'index']);
+    Route::get('/comments/{product}', [CommentController::class, 'index']);
     Route::post('/comments', [CommentController::class, 'store']);
     // Route::get('/products/{id}', [ProductController::class, 'show']);
     // Route::post('/products/{id}', [ProductController::class, 'update']);

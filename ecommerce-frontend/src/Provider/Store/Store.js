@@ -5,7 +5,7 @@ import productSlice from "../Features/Product/productSlice";
 import brandSlice from "../Features/Brand/brandSlice";
 import categorySlice from "../Features/Category/categorySlice";
 import orderSlice from "../Features/Order/orderSlice";
-// import bCategoryReducer from "../features/bcategory/bcategorySlice";
+import commentSlice from "../Features/Comment/commentSlice";
 // import blogReducer from "../features/blogs/blogSlice";
 // import colorReducer from "../features/color/colorSlice";
 // import enquiryReducer from "../features/enquiry/enquirySlice";
@@ -19,7 +19,7 @@ export const store = configureStore({
     product: productSlice,
     brand: brandSlice,
     Category: categorySlice,
-    // bCategory: bCategoryReducer,
+    comment: commentSlice,
     // blogs: blogReducer,
     // color: colorReducer,
     // enquiry: enquiryReducer,

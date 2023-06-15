@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -67,7 +68,7 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         // $user = Product::find(3)->comments();
-        // $user = user::find(1);
+        // $user = Comment::find(1)->user()->get();
 
         return response()->json(['user' => $user], 200);
     }

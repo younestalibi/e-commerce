@@ -18,7 +18,7 @@ return new class extends Migration
             // $table->unsignedBigInteger('product_id');
             // $table->unsignedBigInteger('user_id');
             $table->text('content');
-            $table->string('rate');
+            $table->integer('rate');
           
 
             // $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

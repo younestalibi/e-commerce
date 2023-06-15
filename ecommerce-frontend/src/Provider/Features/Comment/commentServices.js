@@ -4,10 +4,11 @@ import axiosHttp from "../../../utils/axios-client";
 
 
 const createComment = async (comment) => {
-  console.log(comment.get('product_id'))
   const response = await axiosHttp.post(`/comments`,comment);
-  console.log(response)
-
+  return response.data;
+};
+const getComments = async (productID) => {
+  const response = await axiosHttp.get(`/comments/${productID}`);
   return response.data;
 };
 
@@ -16,6 +17,7 @@ const createComment = async (comment) => {
 
 const commentService = {
     createComment,
+    getComments
 };
 
 export default commentService;

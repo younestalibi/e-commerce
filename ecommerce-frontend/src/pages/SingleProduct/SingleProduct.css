@@ -126,7 +126,8 @@
   
   .form-comment-control {
     position: relative;
-    margin-top: 40px;
+    transition: 1s;
+    margin-top: 7px;
     transition: 0.4s;
     --width-of-input: 300px;
   }
@@ -227,3 +228,14 @@
   
   
   
+.comments-box-container{
+  height: 350px;
+  overflow-y: auto;
+  padding: 5px 10px;
+}
+.no-comment-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
