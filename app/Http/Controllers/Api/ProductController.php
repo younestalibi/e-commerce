@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use Exception;
+use App\Models\User;
+use App\Models\Comment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,6 +14,9 @@ class ProductController extends Controller
     public function getProducts()
     {
         $products = Product::with('category', 'brand','images')->paginate(9);
+        // $products = Product::find(18)->comments();
+        // $products = User::find(1)->test();
+        // $products=Comment::find(1)->with('product')->get();
         return response()->json($products, 200);
     }
     public function index()

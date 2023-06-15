@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,12 +31,19 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users',
             'password' => 'required|string',
         ]);
+        // if ($validator->fails()) {
+        //     tr 'helo';
+        //     return response()->json([
+        //         'errors' => $validator->errors(),
+        //     ], 422);
+        // }
 
         if (!Auth::attempt($request->only('email', 'password'))) {
-            return response()->json(['error' => 'Invalid credentials'], 401);
+            // return response()->json(['error' => 'Invalid credentials'], 401);
+            return true;
         }
 
         $user = Auth::user();
@@ -49,15 +57,17 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        // return 'hello';
+        $request->user()->tokens()->delete();
 
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
 
     public function me(Request $request)
     {
-        $user = $request->user();
-        $user->role = $user->role;
+        $user = auth()->user();
+        // $user = Product::find(3)->comments();
+        // $user = user::find(1);
 
         return response()->json(['user' => $user], 200);
     }

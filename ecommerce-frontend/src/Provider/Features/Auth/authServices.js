@@ -4,7 +4,7 @@ import { base_url } from "../../../utils/baseUrl";
 import axiosHttp from "../../../utils/axios-client";
 const login = async (user) => {
     console.log('hello world')
-  const response = await axiosHttp.post(`${base_url}/login`,user);
+  const response = await axiosHttp.post(`/login`,user);
   console.log(response)
   if (response.data) {
     localStorage.setItem("user", response.data.token);
@@ -12,34 +12,34 @@ const login = async (user) => {
   return response.data;
 };
 const logout = async () => {
-  const response = await axiosHttp.post(`${base_url}/logout`);
+  const response = await axiosHttp.post(`/logout`);
   localStorage.removeItem("user");
   return response.data;
 };
 const getUser = async (user) => {
-  const response = await axiosHttp.get(`${base_url}/user`);
+  const response = await axiosHttp.get(`/user`);
   return response.data;
 };
 
-const getOrders = async () => {
-  const response = await axios.get(`${base_url}user/getallorders`);
+// const getOrders = async () => {
+//   const response = await axios.get(`${base_url}user/getallorders`);
 
-  return response.data;
-};
-const getOrder = async (id) => {
-  const response = await axios.post(
-    `${base_url}user/getorderbyuser/${id}`,
-    ""
-  );
+//   return response.data;
+// };
+// const getOrder = async (id) => {
+//   const response = await axios.post(
+//     `${base_url}user/getorderbyuser/${id}`,
+//     ""
+//   );
 
-  return response.data;
-};
+//   return response.data;
+// };
 
 const authService = {
   login,
   getUser,
-  getOrders,
-  getOrder,
+  // getOrders,
+  // getOrder,
   logout
 };
 

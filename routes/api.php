@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 
@@ -41,7 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/brands/{id}', [BrandController::class, 'destroy']);
 
 
-    Route::get('/get-products', [ProductController::class, 'getProducts']);
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/product', [ProductController::class, 'store']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
@@ -52,4 +52,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
 
+    Route::get('/comments', [CommentController::class, 'index']);
+    Route::post('/comments', [CommentController::class, 'store']);
+    // Route::get('/products/{id}', [ProductController::class, 'show']);
+    // Route::post('/products/{id}', [ProductController::class, 'update']);
+    // Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+
 });
+Route::get('/get-products', [ProductController::class, 'getProducts']);

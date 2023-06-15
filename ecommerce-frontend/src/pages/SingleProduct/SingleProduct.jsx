@@ -13,6 +13,9 @@ import { getSingleProduct } from '../../Provider/Features/Product/productSlice';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
+import ReactStars from 'react-stars'
+import { createComment } from '../../Provider/Features/Comment/commentSlice';
+
 const images = [
     // {
     //   original: 'https://picsum.photos/id/1018/1000/600/',
@@ -66,6 +69,29 @@ const SingleProduct = () => {
     const triggerComment=()=>{
         setCommentOpen(!commentOpen)
     }
+    const [rate, setRate] = useState(1);
+    const [content, setContent] = useState('');
+    const ratingChanged = (newRating) => {
+        // console.log(newRating)
+        setRate(newRating)
+      }
+    const handleComment=(e)=>{
+        // console.log(e.target.value)
+        setContent(e.target.value)
+    }
+    const handleSubmit = () => {
+        // Perform actions with the rate and content data
+        const formData = new FormData();
+        formData.append('rate', rate);
+        formData.append('content', content);
+        formData.append('product_id', id);
+        console.log(rate, content);
+        dispatch(createComment(formData))
+        // Reset form fields
+        // setRate(1);
+        // setContent('');
+      };
+       
 
 
 // console.log(singleProduct.images)
@@ -198,10 +224,26 @@ const SingleProduct = () => {
                                 </div>
                             </div>
                             <div>
-                            {commentOpen && (<div class="form-comment-control">
-                                <input class="input-comment input-comment-alt" placeholder="Add your comment here!" type="text" />
-                                <span class="input-comment-border input-comment-border-alt"></span>
-                            </div>)}
+                            {commentOpen && (
+                                <div>
+                                    <div class="form-comment-control">
+                                        <input class="input-comment input-comment-alt" 
+                                        placeholder="Add your comment here!" 
+                                        type="text" 
+                                        value={content}
+                                        onChange={handleComment}
+                                        />
+                                        <span class="input-comment-border input-comment-border-alt"></span>
+                                    </div>
+                                    <div className='d-flex align-items-center justify-content-between'>
+                                        <ReactStars count={5} onChange={ratingChanged} size={24} value={rate} color2={'#ffd700'} />                            
+                                        <button className="comment-button" onClick={handleSubmit}>
+                                            Comment
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                            )}
 
                             </div>
                         </div>

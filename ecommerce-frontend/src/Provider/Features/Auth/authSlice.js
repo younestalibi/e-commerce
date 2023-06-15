@@ -45,9 +45,6 @@ export const getUser = createAsyncThunk(
     }
   }
 );
-
-
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
@@ -81,9 +78,10 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         
-        console.log(action)
+        // console.log(action)
         state.user = null;
-        state.message = action.payload;
+        console.log(state.user)
+        // state.message = action.payload;
       })
       .addCase(logout.rejected, (state, action) => {
         state.isError = true;
