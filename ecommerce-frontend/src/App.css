@@ -17,7 +17,7 @@ body{
 a {
 	margin: 0 5px;
 	color: #eee;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 a:hover {

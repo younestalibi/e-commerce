@@ -113,7 +113,6 @@ const ProductsList = () => {
     dispatch(getProducts());
     }, 100);
   };
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Products</h3>

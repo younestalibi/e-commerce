@@ -5,6 +5,7 @@ import Menu from "../Navbar/Menu/Menu";
 import Navbar from "../Navbar/Navbar/Navbar";
 import './IndexLayout.css'
 const IndexLayout = () => {
+
     return ( 
         <div className="container-layout">
             <Header/>

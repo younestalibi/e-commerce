@@ -32,6 +32,7 @@ import Formbrand from './pages/Brand/Addbrand/Formbrand';
 import OrdersList from './pages/Orders/OrdersList';
 import IndexLayout from './components/MainLayout/IndexLayout';
 import Test from './Test';
+import PaymentLayout from './components/MainLayout/PaymentLayout';
 function App() {
 
   const dispatch=useDispatch()
@@ -57,9 +58,13 @@ function App() {
             <Route index element={<Home/>}/>
             <Route path="/products" element={<SearchProductPage/>}/>
             <Route path="/products/:slug/:id" element={<SingleProduct/>}/>
-            <Route path="/shopping-cart" element={<ShoppingCart/>}/>
+            {/* <Route path="/shopping-cart" element={<ShoppingCart/>}/> */}
             <Route path="/order-complete" element={<OrderComplete/>}/>
             <Route path="/checkout" element={<Checkout/>}/>
+
+            <Route path="/shopping-cart" element={<PaymentLayout />}>      
+              <Route index element={<ShoppingCart />} />
+            </Route>
 
             
           </Route>
@@ -68,6 +73,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           {/* <Route path="/cart" element={<Test />}></Route> */}
           <Route path="/test" element={<Test />}></Route>
+
+          
 
           <Route path="/admin" element={<MainLayout />}>      
             <Route index element={<Dashboard />} />

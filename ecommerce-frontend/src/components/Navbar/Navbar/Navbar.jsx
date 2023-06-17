@@ -57,8 +57,8 @@ function Navbar() {
             </div>
 			<div className="nav-menu" ref={navRef}>
 				{/* <Link className='nav-link' to="/">Store</Link> */}
-                <Link className='nav-link active' to="/">
-                    Basket <BsBagCheck/>
+                <Link className='nav-link active' to="/shopping-cart">
+                    <span>Basket</span> <BsBagCheck/>
                 </Link>
                 {
                     user?

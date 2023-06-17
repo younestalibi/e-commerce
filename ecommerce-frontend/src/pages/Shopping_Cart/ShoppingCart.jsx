@@ -6,118 +6,236 @@ import betcoin from '../../assets/Shopping_Cart/betcoin.png'
 import master_card from '../../assets/Shopping_Cart/master_card.png'
 import visa from '../../assets/Shopping_Cart/visa.avif'
 import dress from '../../assets/Shopping_Cart/dress.jpg'
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, Table } from 'antd';
+import { BiEdit } from 'react-icons/bi';
+import { AiFillDelete, AiFillEye } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import CustomAlert from '../../components/CustomAlert/CustomAlert';
+import { removeFromCart } from '../../Provider/Features/Cart/cartSlice';
+const columns = [
+    // {
+    //   title: "SNo",
+    //   dataIndex: "key",
+    // },
+    {
+      title: "Name",
+      key: 'name',
+      dataIndex: "name",
+    //   sorter: (a, b) => a.name.length - b.name.length,
+    },
+    {
+      title: "Image",
+      key: 'image',
+      dataIndex: "image",
+    },
+    
+    {
+      title: "Color",
+      key: 'color',
+      dataIndex: "color",
+    },
+    {
+      title: "Quantity",
+      key: 'quantity',
+      dataIndex: "quantity",
+    },
+    {
+      title: "Price",
+      key: 'price',
+      dataIndex: "price",
+    },
+    {
+      title: "Total",
+      key: 'total',
+      dataIndex: "total",
+    },
+    
+    
+    {
+      title: "Action",
+      dataIndex: "action",
+    },
+  ];
+
+  import { LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
+import { Steps } from 'antd';
+import {AiFillStar,AiOutlineHeart,AiOutlineComment, AiTwotoneHeart} from 'react-icons/ai'
 
 
-export default function ShoppingCart(){
+const ShoppingCart = () => {
+    const dispatch = useDispatch();
+    const [deleteId,setDeleteId]=useState(null)
+    const [open, setOpen] = useState(false);
+    const showModal = (e) => {
+        setOpen(true);
+        setDeleteId(e)
+    };
+    const hideModal = () => {
+        setOpen(false);
+    };
+
+
+    const {cart,isLoading} = useSelector((state) => state.cart);
+    const data = [];
+    var totalCart=0
+    var discount=0
+    for (const [index,item] of cart.entries()) {
+        console.log(item)
+        totalCart+=item.quantity*item.price
+        data.push({
+        key: item.id,
+        name: item.name,
+        color: <span style={{backgroundColor:item.color,padding:'0 27px',margin:'auto',borderRadius:'4px'}}></span>,
+        price: `${item.price}Dh`,
+        image:
+        <img 
+            style={{width:'60px',height:'60px',objectFit:"cover"}} 
+            src={`${import.meta.env.VITE_SERVER_URL}/storage/${item.image && item.image}`}
+        />,
+        quantity:item.quantity,
+        price:item.price,
+        total:item.quantity*item.price,
+        action: (
+            <>
+            <Link to={`/products/${item.slug}/${item.id}`} className=" fs-3 text-danger">
+                <AiFillEye />
+            </Link>
+            <button
+                className="ms-3 fs-3 text-danger bg-transparent border-0"
+                onClick={() => showModal(item.id)}
+            >
+                <AiFillDelete />
+            </button>
+            </> 
+        ),
+        });
+    }
+    const deleteRecord = (e) => {
+        if(typeof(e)=='object'){
+            for(let id of e){
+                dispatch(removeFromCart(id)) //delete array of ids
+                setSelectedRowKeys([]);
+            }
+        }else{
+            dispatch(removeFromCart(e))
+        }
+        
+        // dispatch(resetStateProduct())
+        setOpen(false);
+        // setTimeout(() => {
+        // dispatch(getProducts());
+        // }, 100);
+      };
     const [plusButton,setPlusButton]=useState()
     const [minusButton,setMinusButton]=useState()
-    return(
-        <div>
-            <div className="shopping-cart-nav">
-                <a className='shopping-cart-icon'><i class="fa-solid fa-cart-shopping"></i></a>
-                <strong className='shopping-cart-text'>Shopping Cart</strong>
-                
-                <strong className='shopping-cart-line'>________</strong>
 
-                <a className='checkout-icon'><i class="fa-solid fa-cart-shopping"></i></a>
-                <span className='checkout-text'>Checkout</span>
 
-                <strong className='shopping-cart-line'>________</strong>
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const start = () => {
+        showModal(selectedRowKeys)
+        // setLoading(true);
+        // ajax request after empty completing
+        // setTimeout(() => {
+        // setSelectedRowKeys([]);
+        // setLoading(false);
+        // }, 1000);
+    };
+    const onSelectChange = (newSelectedRowKeys) => {
+        setSelectedRowKeys(newSelectedRowKeys);
+    };
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: onSelectChange,
+    };
+    console.log(selectedRowKeys)
+    const hasSelected = selectedRowKeys.length > 0;
 
-                <a className='order-complete-icon'><i class="fa-solid fa-cart-shopping"></i></a>
-                <span className='order-complete-text'>Order Complete</span>
-            </div>
 
-            <div className="shopping-cart-container">
-                <div className="shopping-cart-div-1">
+
+
+
+
+    const [couponCode, setCouponCode] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
+
+  // Calculate total amount based on cartItems
+
+  const handleCouponCodeChange = (e) => {
+    setCouponCode(e.target.value);
+  };
+
+  const handlePaymentMethodChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleCheckout = () => {
+    // Logic for handling the checkout process
+  };
+    return ( 
+        <div className='cart-container'>
+            
+            <div className='cart-wrapper'>
+                <div>
+                    <div
+                    style={{
+                    marginBottom: 16,
+                    }}
+                    >
+                    <Button type="primary" onClick={start} disabled={!hasSelected} loading={loading}>
+                    Delete
+                    </Button>
+                    <span
+                    style={{
+                        marginLeft: 8,
+                    }}
+                    >
+                    {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
+                    </span>
+                    </div>
+                    <div className=''>
                     <strong>Your Cart</strong>
-                    <strong className="shopping-cart-div-1-number-of-products">(3)</strong>
-                    <div className="shopping-cart-div-1-line">_______________________________________________________________________________________</div>
-                    <div className="shopping-cart-div-1-product">
-                        <img className="shopping-cart-div-1-product-img" src={dress} alt="dress"/>
-                        <span className="shopping-cart-div-1-product-text">1x ZW VESTE EN JEAN À SURPIQÛRES</span>
-                        <button className='shopping-cart-div-1-product-buttons-plusminus'><i class="fa-solid fa-minus"></i></button>
-                        <span className='shopping-cart-div-1-product-numberElement'>1</span>
-                        <button className='shopping-cart-div-1-product-buttons-plusminus'><i class="fa-solid fa-plus"></i></button>
-                        <strong className='shopping-cart-div-1-product-forOneItem'>$200.00</strong>
-                        <strong className='shopping-cart-div-1-product-forNItem'>$200.00</strong>
+                    <strong className="">({cart.length})</strong>
                     </div>
-                    <div className="shopping-cart-div-1-line-thin">_______________________________________________________________________________________</div>
-                    <div className="shopping-cart-div-1-product">
-                        <img className="shopping-cart-div-1-product-img" src={dress} alt="dress"/>
-                        <span className="shopping-cart-div-1-product-text">1x ZW VESTE EN JEAN À SURPIQÛRES</span>
-                        <button className='shopping-cart-div-1-product-buttons-plusminus'><i class="fa-solid fa-minus"></i></button>
-                        <span className='shopping-cart-div-1-product-numberElement'>1</span>
-                        <button className='shopping-cart-div-1-product-buttons-plusminus'><i class="fa-solid fa-plus"></i></button>
-                        <strong className='shopping-cart-div-1-product-forOneItem'>$200.00</strong>
-                        <strong className='shopping-cart-div-1-product-forNItem'>$200.00</strong>
-                    </div>
-                    <div className="shopping-cart-div-1-line-thin">_______________________________________________________________________________________</div>
-                    <div className="shopping-cart-div-1-product">
-                        <img className="shopping-cart-div-1-product-img" src={dress} alt="dress"/>
-                        <span className="shopping-cart-div-1-product-text">1x ZW VESTE EN JEAN À SURPIQÛRES</span>
-                        <button className='shopping-cart-div-1-product-buttons-plusminus'><i class="fa-solid fa-minus"></i></button>
-                        <span className='shopping-cart-div-1-product-numberElement'>1</span>
-                        <button className='shopping-cart-div-1-product-buttons-plusminus'><i class="fa-solid fa-plus"></i></button>
-                        <strong className='shopping-cart-div-1-product-forOneItem'>$200.00</strong>
-                        <strong className='shopping-cart-div-1-product-forNItem'>$200.00</strong>
-                    </div>
-                    <div className="shopping-cart-div-1-line-thin">_______________________________________________________________________________________</div>
-                    <div className="shopping-cart-div-1-line-thin">_______________________________________________________________________________________</div>
-                    <div className="shopping-cart-div-1-texts">
-                        <strong className="shopping-cart-div-1-texts-text-1">Delivery</strong>
-                        <strong className="shopping-cart-div-1-texts-text-2">Free Returns</strong>
-                    </div>
-                    <div className="shopping-cart-div-1-cards">
-                        <div className='shopping-cart-div-1-cards-card1'>
-                            <a className='shopping-cart-div-1-cards-card1-icon'><i class="fa-solid fa-receipt"></i></a>
-                            <div className='shopping-cart-div-1-cards-card1-text1'>Order by 10pm for free next day delivery on Orders overs $100</div>
-                            <div className='shopping-cart-div-1-cards-card1-text2'>We deliver Monday to Saturday - excluding Holidays</div>
-                        </div>
-                        <div className='shopping-cart-div-1-cards-card2'>
-                            <a className='shopping-cart-div-1-cards-card2-icon'><i class="fa-solid fa-box"></i></a>
-                            <div className='shopping-cart-div-1-cards-card2-text1'>Free next day delivery to stores.</div>
-                            <div className='shopping-cart-div-1-cards-card2-text2'>Home delivery is $4.99 for orders under $100 and is FREE for all orders over $100</div>
-                        </div>
-                        <div className='shopping-cart-div-1-cards-card3'>
-                            <a className='shopping-cart-div-1-cards-card3-icon'><i class="fa-solid fa-truck"></i></a>
-                            <div className='shopping-cart-div-1-cards-card3-text'>30 days to return it to us for a refund. We have made returns SO EASY - you can now return your order to a store or send it with FedEx FOR FREE</div>
-                        </div>
-                    </div>
+                    <Table rowSelection={rowSelection} columns={columns} dataSource={data} loading={isLoading} />
                 </div>
+                <div>
+                    <div className='card p-4'>
+                        <div className='d-flex my-2 justify-content-between'>
+                            <div>Subtotal</div>
+                            <b>{`${totalCart}Dh`}</b>
+                        </div>
+                        <div className='d-flex my-2 justify-content-between'>
+                            <div>Discount</div>
+                            <b>0DH</b>
+                        </div>
+                        <div className='d-flex my-2 justify-content-between'>
+                            <div>Total</div>
+                            <b>{`${totalCart-discount}Dh`}</b>
+                        </div>
+                        <div className='coupon-code-input my-3'>
+                            <input type="text" placeholder="Coupon Code"/>
+                            <input type="button" value="Apply Coupon" />
+                        </div>
+                        <div className='checkout-button my-4'>
+                            <Link disabled={true} to='/checkout'>Checkout | {`${totalCart-discount}Dh`}</Link>
+                        </div>
+                        
+                    </div>
 
-                <div className="shopping-cart-div-2">
-                    <div className='shopping-cart-div-2-textDiv'>
-                        <span className='shopping-cart-div-2-text-text'>Total</span>
-                        <strong className='shopping-cart-div-2-text-price'>$497.00</strong>
-                    </div>
-                    <div className='shopping-cart-div-2-textDiv'>
-                        <span className='shopping-cart-div-2-text-text'>Discount</span>
-                        <strong className='shopping-cart-div-2-text-price'>$0.0</strong>
-                    </div>
-                    <div className='shopping-cart-div-2-textDiv'>
-                        <span className='shopping-cart-div-2-text-text'>Shipping Costs</span>
-                        <strong className='shopping-cart-div-2-text-price'>$50.00</strong>
-                    </div>
-                    <input className='shopping-cart-div-2-input' type='text' placeholder='Coupon code'/>
-                    <button className='shopping-cart-div-2-button-applyCoupon'>Apply Coupon</button>
-                    <div className="shopping-cart-div-1-line-thin">_____________________________________________</div>
-                    <progress className='progress-bar' value="50" max="100"></progress>
-                    <div className='shopping-cart-div-2-free-shipping'>
-                        <span className="shopping-cart-div-2-thin-text">Get Free </span><span className="shopping-cart-div-2-shipping">Shipping </span> <span className="shopping-cart-div-2-thin-text">for orders over</span> <span className="shopping-cart-div-2-100-dollar">$100.00</span>
-                        <div className="shopping-cart-div-2-continueshopping"><a href='#'>Continue Shopping</a></div>
-                    </div>
-                    <button className='shopping-cart-div-2-button-chekout'>Checkout | $547.00</button>
-                    <div className="shopping-cart-div-1-line-thin">_____________________________________________</div>
-                    <div className='shopping-cart-div-2-payement-text'>SECURE PAYMENTS PROVIDED BY</div>
-                    <div className='shopping-cart-div-2-payement-imgs'>
-                        <button className='shopping-cart-div-2-payement-imgs-button1'><img className="shopping-cart-div-2-payement-imgs-img1" src={master_card} alt="master_card"/></button>
-                        <button className='shopping-cart-div-2-payement-imgs-button2'><img className="shopping-cart-div-2-payement-imgs-img1" src={visa} alt="visa"/></button>
-                        <button className='shopping-cart-div-2-payement-imgs-button3'><img className="shopping-cart-div-2-payement-imgs-img2" src={betcoin} alt="betcoin"/></button>
-                        <button className='shopping-cart-div-2-payement-imgs-button4'><img className="shopping-cart-div-2-payement-imgs-img2" src={interac} alt="interac"/></button>
-                    </div>
                 </div>
             </div>
+            <CustomAlert
+                setOpen={setOpen}
+                open={open}
+                performAction={() => {
+                    deleteRecord(deleteId);
+                }}
+                title="Are you sure you want to delete this Product?"
+            />
         </div>
-    )
+     );
 }
+ 
+export default ShoppingCart;

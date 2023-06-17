@@ -3,7 +3,24 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    cart: [],
+    cart: [
+        {color: "#910d0d",
+        id: 3,
+        image: "product/P9Fz9PoyMChdZATHQqEoYWVgZqLExSFp9wk2JCrM.png",
+        name: "younes",
+        price: 234,
+        quantity: 1,
+        slug:'service',
+        size: "S"},
+        {color: "#910d0d",
+        id: 9,
+        image: "product/P9Fz9PoyMChdZATHQqEoYWVgZqLExSFp9wk2JCrM.png",
+        name: "younes",
+        price: 234,
+        slug:'service',
+        quantity: 1,
+        size: "S"},
+    ],
     isError: false,
     isLoading: false,
     isSuccess: false,
@@ -18,7 +35,13 @@ export const cartsSlice = createSlice({
   initialState: initialState,
   reducers: {
     addToCart: (state, action) => {
-        state.cart.push(action.payload);
+        const newObject = action.payload;
+        const existingIndex = state.cart.findIndex((obj) => obj.id === newObject.id);
+        if (existingIndex !== -1) {
+            state.cart.splice(existingIndex, 1, newObject);
+        } else {
+            state.cart.push(newObject);
+        }
     },
     removeFromCart: (state, action) => {
         console.log(action.payload)

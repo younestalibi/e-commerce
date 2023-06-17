@@ -166,11 +166,12 @@ const SingleProduct = () => {
     const selectedProduct = {
         id: singleProduct.id,
         name: singleProduct.name,
+        slug:singleProduct.slug,
         image:singleProduct.images[0].image_path,
         price:parseFloat(singleProduct.price),
         quantity: quantity,
         size: selectedSize,
-        colors: selectedColor,
+        color: selectedColor,
       };
     dispatch(addToCart(selectedProduct));
 
