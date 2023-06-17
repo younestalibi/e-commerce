@@ -6,6 +6,8 @@ import brandSlice from "../Features/Brand/brandSlice";
 import categorySlice from "../Features/Category/categorySlice";
 import orderSlice from "../Features/Order/orderSlice";
 import commentSlice from "../Features/Comment/commentSlice";
+import favoritesSlice from "../Features/Favorites/favoritesSlice";
+import cartSlice from "../Features/Cart/cartSlice";
 // import blogReducer from "../features/blogs/blogSlice";
 // import colorReducer from "../features/color/colorSlice";
 // import enquiryReducer from "../features/enquiry/enquirySlice";
@@ -15,11 +17,14 @@ export const store = configureStore({
   reducer: {
     order: orderSlice,
     auth: authSlice,
+    favorites: favoritesSlice,
     // customer: customerReducer,
     product: productSlice,
     brand: brandSlice,
     Category: categorySlice,
     comment: commentSlice,
+    cart: cartSlice,
+
     // blogs: blogReducer,
     // color: colorReducer,
     // enquiry: enquiryReducer,

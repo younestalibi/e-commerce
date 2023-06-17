@@ -2,7 +2,7 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import ProductDisplay from './ProductDisplay';
 import './SingleProduct.css'
 import image from '../../assets/img.png'
-import {AiFillStar,AiOutlineHeart,AiOutlineComment,AiFillDelete} from 'react-icons/ai'
+import {AiFillStar,AiOutlineHeart,AiOutlineComment,AiFillDelete, AiTwotoneHeart} from 'react-icons/ai'
 import {BiEdit} from 'react-icons/bi'
 import {CiMenuKebab} from 'react-icons/ci'
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
@@ -20,6 +20,8 @@ import { createComment, deleteComment, getComments } from '../../Provider/Featur
 import CustomAlert from '../../components/CustomAlert/CustomAlert';
 import { formatDate } from '../../utils/formatDate';
 import { NearestNumber } from '../../utils/NearestNumber';
+import { addToFavorites, removeFromFavorites } from '../../Provider/Features/Favorites/favoritesSlice';
+import { addToCart } from '../../Provider/Features/Cart/cartSlice';
 
 
 
@@ -33,7 +35,6 @@ const SingleProduct = () => {
     const commentState= useSelector((state) => state.comment);
     const totalRate= commentState.comments.reduce((accumulator, currentNumber) => accumulator + parseInt(currentNumber.rate), 0);
     const averageRate =NearestNumber(totalRate / commentState.comments.length);
-    console.log(averageRate)
     const dispatch=useDispatch()
     useEffect(()=>{
         dispatch(getSingleProduct(id))
@@ -121,6 +122,93 @@ const SingleProduct = () => {
     //     };
     //     return formatDate(date)
     // }
+    const [selectedColor, setSelectedColor] = useState(null);
+    const [selectedSize, setSelectedSize] = useState(null);
+    const [colors,setColors]=useState([])
+    const [sizes,setSizes]=useState([])
+    // singleProduct&&singleProduct.price
+    
+   
+    useEffect(()=>{
+        if(Boolean(singleProduct)){
+            setColors([singleProduct.color])
+            setSelectedColor(singleProduct.color)
+            setSelectedSize(singleProduct.size);
+            setSizes([singleProduct.size]);
+
+            setAvailableQuantity(singleProduct.quantity)
+        }
+
+    },[singleProduct])
+  const handleColorSelection = (color) => {
+    setSelectedColor(color);
+  };
+  const handleSizeSelection = (size) => {
+    setSelectedSize(size);
+  };
+
+
+  const [quantity, setQuantity] = useState(1);
+  const [availableQuantity,setAvailableQuantity] = useState(0); // Assuming the available quantity is 10, you can replace it with your own logic
+
+  const handleQuantityChange = (event) => {
+    const value = parseInt(event.target.value);
+    if (!isNaN(value) && value >= 1 && value <= availableQuantity) {
+      setQuantity(value);
+    }
+  };
+
+  const handleAddToCart = () => {
+    // Add your logic here for adding the product to the cart
+    console.log(`Added ${quantity} products to the cart.`);
+    // console.log(singleProduct)
+
+    const selectedProduct = {
+        id: singleProduct.id,
+        name: singleProduct.name,
+        image:singleProduct.images[0].image_path,
+        price:parseFloat(singleProduct.price),
+        quantity: quantity,
+        size: selectedSize,
+        colors: selectedColor,
+      };
+    dispatch(addToCart(selectedProduct));
+
+
+
+  };
+  const cart = useSelector((state) => state.cart);
+console.log(cart)
+  const handleFavorite=()=>{
+    // dispatch(addToFavorites(singleProduct))
+    // favorites.favorites.some((favProduct) => console.log(favProduct))
+
+    if (isFavorite) {
+        dispatch(removeFromFavorites(singleProduct.id));
+        console.log('remove')
+      } else {
+        console.log('add')
+        dispatch(addToFavorites(singleProduct));
+      }
+  }
+  const favorites = useSelector((state) => state.favorites);
+const [isFavorite,setIsFavorite]=useState(null)
+// if(singleProduct){
+// }
+useEffect(()=>{
+    if(singleProduct){
+        setIsFavorite(favorites.favorites.some((favProduct) => favProduct.id === singleProduct.id));
+    }
+},[singleProduct,favorites])
+//   const handleToggleFavorites = () => {
+//     if (isFavorite) {
+//       dispatch(removeFromFavorites(product.id));
+//     } else {
+//       dispatch(addToFavorites(product));
+//     }
+//   };
+
+
     return ( 
         <div className='signle-product-container'>
             <div className="single-product-flex-container">
@@ -130,32 +218,82 @@ const SingleProduct = () => {
                     <SectionTitle title='CUSTOMER REVIEWS'/>
                 </div>
                 <div className="single-product-grid-item">
-                    {/* ------------------- here a ranaaa ---------- */}
-                    <div className='signle-product-title'>{singleProduct&&singleProduct.name}looong nalasdjf;lajsdf;lajsd naame proejct hwll owrold</div>
-                    <div className='signle-product-title-review'>
-                        {/* <div className='signle-product-title-review-stars'>
-                            <AiFillStar/>
-                            <AiFillStar/>
-                            <AiFillStar/>
-                        </div> */}
+                    <div className='signle-product-title'>{singleProduct&&singleProduct.name}</div>
+                    <div className='signle-product-title-review'>                       
                         <div>
-                        <ReactStars  edit={false} count={5} size={35} value={averageRate} color2={'rgb(255, 166, 0)'} />                            
+                            <ReactStars  edit={false} count={5} size={35} value={averageRate} color2={'rgb(255, 166, 0)'} />                            
                         </div>
                         <div>
                             <b><span>{commentState.comments.length}</span> review</b>
                         </div>
-                        <div className='d-flex align-items-center product-favorites'>
-                            <AiOutlineHeart/>
-                            <span ><b>Add to favorites</b></span>
+                        {isFavorite?
+                        <div className='d-flex align-items-center product-favorites'
+                        onClick={handleFavorite}
+                        >
+                            <AiTwotoneHeart color='rgb(255, 30, 67)'/>
+                            {/* <span ><b>Remove from favorites</b></span> */}
                         </div>
+                        :
+                        <div className='d-flex align-items-center product-favorites'
+                        onClick={handleFavorite}
+                        >
+                            <AiOutlineHeart />
+                            {/* <span ><b>Add to favorites</b></span> */}
+                        </div>
+                        }
+                        
                     </div>
                     <div class="signle-product-pricing">
                         <span class="signle-product-new-price">{`${singleProduct&&singleProduct.price}MAD`}</span>
-                        {/* <span class="signle-product-old-price">MAD200</span> */}
                     </div>
                     <div className='signle-product-sold'>
                         <span>42 </span>
-                        SOLD
+                        <span>SOLD</span>
+                    </div>
+                
+                    <div className='product-options-container'>
+                        <span><b>Color:</b> {selectedColor}</span>
+                        <div className="color-options">
+                            {colors.length>0&&colors.map((color) => (
+                            <div
+                                key={color}
+                                className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                                style={{ backgroundColor: color }}
+                                onClick={() => handleColorSelection(color)}
+                            ></div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className='product-options-container'>
+                        <span><b>Size:</b> {selectedSize}</span>
+                        <div className="size-options">
+                            {sizes.length>0 && sizes.map((size) => (
+                            <div
+                                key={size}
+                                className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                                onClick={() => handleSizeSelection(size)}
+                            >
+                                {size}
+                            </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className='product-options-container'>
+                        <div className="quantity-selector">
+                        <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                            Add to Cart
+                            <span></span>
+                        </button>
+                            <select className="quantity-select" value={quantity} onChange={handleQuantityChange}>
+                            {Array.from({ length: availableQuantity }, (_, index) => (
+                                <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                                </option>
+                            ))}
+                            </select>
+                        
+                        
+                        </div>
                     </div>
                     {/* <div>
                         <b>About this item</b>

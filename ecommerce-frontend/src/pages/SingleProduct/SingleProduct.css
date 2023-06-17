@@ -60,7 +60,7 @@
 .signle-product-title-review .product-favorites svg{
     font-size: 25px;
 }
-.signle-product-title-review div:hover{
+.signle-product-title-review .product-favorites:hover{
   color: rgb(255, 30, 67);
 }
 
@@ -174,14 +174,15 @@
   .signle-product-pricing {
    display: flex; 
    align-items: center;
+   /* gap: 20px; */
 }
   
-  .signle-product-old-price {
+  /* .signle-product-old-price {
     text-decoration: line-through;
     color: #999;
     margin-right: 10px;
     font-size: 18px;
-  }
+  } */
   
   .signle-product-new-price {
     color: rgb(0, 0, 0);
@@ -199,10 +200,7 @@
     color: rgb(12, 236, 4);
   }
 
-  
-
-
-
+ 
 
   .comment-button {
     cursor: pointer;
@@ -246,9 +244,7 @@
   .comment-button:active {
     scale: 1;
   }
-  
-  
-  
+
 .comments-box-container{
   height: 350px;
   overflow-y: auto;
@@ -260,3 +256,160 @@
   align-items: center;
   height: 100%;
 }
+
+/* color---------- */
+
+.product-options-container{
+  margin-top: 20px;
+}
+.product-options-container b{
+  font-size: 20px;
+}
+.color-options {
+  display: flex;
+}
+
+.color-option {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.color-option:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.color-option.selected {
+  border: 2.2px solid rgb(0, 0, 0);
+  /* box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.603); */
+}
+.color-option {
+  position: relative;
+  overflow: hidden;
+}
+
+.color-option:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.color-option:hover:after {
+  opacity: 1;
+}
+/* color--size------ */
+
+.size-options {
+  display: flex;
+  justify-content: start;
+  margin-top: 20px;
+}
+
+.size-option {
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #e0e0e0;
+  color: #555;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.size-option:hover {
+  background-color: #aaa;
+  color: white;
+  transform: scale(1.05);
+}
+
+.size-option.selected {
+  background-color: #333;
+  color: white;
+  transform: scale(1.05);
+}
+/* ---quantity add cart button---size */
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+}
+
+.quantity-select {
+  /* width: 100px; */
+  /* height: 30px; */
+  text-align: center;
+  height: 100%;
+  padding: 5px;
+  padding: 0.8em 0em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+
+.add-to-cart-btn {
+  border: none;
+  display: block;
+  position: relative;
+  padding: 0.7em 2.4em;
+  font-size: 18px;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+  color: royalblue;
+  z-index: 1;
+  font-family: inherit;
+  font-weight: 500;
+  /* min-width: 250px; */
+}
+
+.add-to-cart-btn span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: -1;
+  border: 4px solid royalblue;
+}
+
+.add-to-cart-btn span::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8%;
+  height: 500%;
+  background: var(--lightgray);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-60deg);
+  transition: all 0.3s;
+}
+
+.add-to-cart-btn:hover span::before {
+  transform: translate(-50%, -50%) rotate(-90deg);
+  width: 100%;
+  background: royalblue;
+}
+
+.add-to-cart-btn:hover {
+  color: white;
+}
+
+.add-to-cart-btn:active span::before {
+  background: #2751cd;
+}
+
+/* ---quantity add cart button--- */

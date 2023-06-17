@@ -41,7 +41,7 @@ export const deleteComment = createAsyncThunk(
 );
 export const resetStateComment = createAction("RevertAll");
 
-export const authSlice = createSlice({
+export const commentSlice = createSlice({
   name: "comment",
   initialState: initialState,
   reducers: {
@@ -117,4 +117,4 @@ export const authSlice = createSlice({
 
 
 
-export default authSlice.reducer;
+export default commentSlice.reducer;

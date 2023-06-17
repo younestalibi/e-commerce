@@ -146,7 +146,6 @@ export const productSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        console.log(action.payload.product)
         state.singleProduct = action.payload.product
         // state.ProductData = action.payload.product;
       })

@@ -14,7 +14,6 @@ const getComments = async (productID) => {
 
 const deleteComment = async (commentId) => {
   const response = await axiosHttp.delete(`/comments/${commentId}`);
-  console.log(response)
   return response.data;
 };
 

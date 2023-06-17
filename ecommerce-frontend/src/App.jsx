@@ -66,9 +66,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* <Route path="/cart" element={<Test />}></Route> */}
           <Route path="/test" element={<Test />}></Route>
-          <Route path="/admin" element={<MainLayout />}>
-          
+
+          <Route path="/admin" element={<MainLayout />}>      
             <Route index element={<Dashboard />} />
             {/* <Route path="enquiries" element={<Enquiries />} /> */}
             {/* <Route path="enquiries/:id" element={<ViewEnq />} /> */}
