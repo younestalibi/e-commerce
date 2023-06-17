@@ -12,12 +12,19 @@ const getComments = async (productID) => {
   return response.data;
 };
 
+const deleteComment = async (commentId) => {
+  const response = await axiosHttp.delete(`/comments/${commentId}`);
+  console.log(response)
+  return response.data;
+};
+
 
 
 
 const commentService = {
     createComment,
-    getComments
+    getComments,
+    deleteComment
 };
 
 export default commentService;

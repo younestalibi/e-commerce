@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import commentService from "./commentServices";
 
 
@@ -29,6 +29,17 @@ export const getComments = createAsyncThunk(
     }
   }
 );
+export const deleteComment = createAsyncThunk(
+  "comment/delete-comment",
+  async (commentID, thunkAPI) => {
+    try {
+      return await commentService.deleteComment(commentID);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const resetStateComment = createAction("RevertAll");
 
 export const authSlice = createSlice({
   name: "comment",
@@ -63,6 +74,24 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       // --------create comment---------
+      // --------delete comment---------
+      .addCase(deleteComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        // state.comments = action.payload;
+        state.message = "success";
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        // state.message = action.payload.response.data.errors;
+        state.isLoading = false;
+      })
+      // --------get comment---------
       // --------get comment---------
       .addCase(getComments.pending, (state) => {
         state.isLoading = true;
@@ -81,6 +110,8 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       // --------get comment---------
+
+      .addCase(resetStateComment, () => initialState);
   },
 });
 
