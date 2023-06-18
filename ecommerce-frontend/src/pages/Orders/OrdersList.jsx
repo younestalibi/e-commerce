@@ -7,6 +7,10 @@ import { BiEdit } from "react-icons/bi";
 import { AiFillDelete, AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getOrders } from '../../Provider/Features/Order/orderSlice';
+// import InputRange from 'react-input-range';
+// import 'react-input-range/lib/css/index.css';
+// import { useState } from 'react';
+
 // import { getOrders } from "../features/auth/authSlice";
 const columns = [
   {
@@ -128,8 +132,19 @@ console.log(uniqueBatchOrders);
       ),
     });
   }
+  // const [value, setValue] = useState({ min: 0, max:500 });
+  // console.log(value)
+
   return (
     <div>
+      {/* <div className='my-5'> */}
+      {/* <InputRange
+      maxValue={1000}
+      minValue={0}
+      value={value}
+      onChange={(newValue) => setValue(newValue)}
+    /> */}
+      {/* </div> */}
       <h3 className="mb-4 title">Orders</h3>
       <div>{<Table columns={columns} loading={isLoading} dataSource={data1} />}</div>
     </div>

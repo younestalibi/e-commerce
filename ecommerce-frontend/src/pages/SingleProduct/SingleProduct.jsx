@@ -16,12 +16,13 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 import ReactStars from 'react-stars'
-import { createComment, deleteComment, getComments } from '../../Provider/Features/Comment/commentSlice';
+import { createComment, deleteComment, getComments, getSingleComment, resetSingleComment, updateComment } from '../../Provider/Features/Comment/commentSlice';
 import CustomAlert from '../../components/CustomAlert/CustomAlert';
 import { formatDate } from '../../utils/formatDate';
 import { NearestNumber } from '../../utils/NearestNumber';
 import { addToFavorites, removeFromFavorites } from '../../Provider/Features/Favorites/favoritesSlice';
 import { addToCart } from '../../Provider/Features/Cart/cartSlice';
+import { comment } from 'postcss';
 
 
 
@@ -179,7 +180,6 @@ const SingleProduct = () => {
 
   };
   const cart = useSelector((state) => state.cart);
-console.log(cart)
   const handleFavorite=()=>{
     // dispatch(addToFavorites(singleProduct))
     // favorites.favorites.some((favProduct) => console.log(favProduct))
@@ -208,7 +208,44 @@ useEffect(()=>{
 //       dispatch(addToFavorites(product));
 //     }
 //   };
+// const [isEdite,setIsedite]=useState(false)
+const [commentID,setCommentID]=useState(null)
+const editeComment=(e)=>{
+    setCommentID(e)
+    // setEditedComment(30)
+    // console.log(editedComment)
+    // setIsedite(true)
+    // const commentData={
+    //     productID:id,
+    //     commentID:e
+    // }
+    dispatch(getSingleComment(e))
+}
+useEffect(()=>{
+    if(commentState.signleComment){
+        setContent(commentState.signleComment.content)
+        setRate(commentState.signleComment.rate)
+        setCommentOpen(true)
+        if (specificDivRef.current ) {
+            specificDivRef.current.scrollIntoView({ behavior: 'smooth' });
+            window.scrollTo(0, window.innerHeight);
+        }
+    }
+},[commentState.signleComment])
+    const cancleEditeComment=()=>{
+        dispatch(resetSingleComment())
+        setContent('')
+        setRate('')
 
+    }
+    const handleUpdate=()=>{
+        const commentData={
+            commentID,
+            content,
+            rate
+        }
+        dispatch(updateComment(commentData))
+    }
 
     return ( 
         <div className='signle-product-container'>
@@ -299,7 +336,6 @@ useEffect(()=>{
                     {/* <div>
                         <b>About this item</b>
                     </div> */}
-                    {/* ------------------- here a ranaaa ---------- */}
                 </div>
             </div>
             <div className="single-product-grid-container">
@@ -349,7 +385,7 @@ useEffect(()=>{
                                         <div className='p-1 d-flex flex-column align-items-center h-100 justify-content-around'>    
                                         <button
                                          className="ms-3 fs-3 text-danger bg-transparent border-0"
-                                         onClick={() => alert('edite')}
+                                         onClick={()=>{editeComment(e.id)}}
                                         >
                                             <BiEdit />
                                         </button>
@@ -386,10 +422,23 @@ useEffect(()=>{
                                         <span className="input-comment-border input-comment-border-alt"></span>
                                     </div>
                                     <div className='d-flex align-items-center justify-content-between'>
-                                        <ReactStars half={false} count={5} onChange={ratingChanged} size={25} value={rate} color2={'rgb(255, 166, 0)'} />                            
+                                        <ReactStars  count={5} onChange={ratingChanged} size={25} value={rate} color2={'rgb(255, 166, 0)'} />                            
+                                        {commentState.signleComment?
+                                        <div>
+                                            <button className="comment-button text-danger bg-danger text-white border-white" onClick={cancleEditeComment}>
+                                                cancle
+                                            </button>
+                                            <button className="comment-button mx-2 " onClick={handleUpdate}>
+                                                Update comment
+                                            </button>              
+                                        </div>
+                                        :
                                         <button className="comment-button" onClick={handleSubmit}>
                                             Comment
                                         </button>
+                                        }
+                                        {/* <button onClick={cancleEditeComment}>  cancle</button> */}
+                                        
                                     </div>
                                 </div>
                                 

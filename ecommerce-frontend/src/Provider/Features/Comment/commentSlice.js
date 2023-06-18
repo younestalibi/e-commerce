@@ -19,11 +19,31 @@ export const createComment = createAsyncThunk(
     }
   }
 );
+export const getSingleComment = createAsyncThunk(
+  "comment/get-single-comment",
+  async (commentID, thunkAPI) => {
+    try {
+      return await commentService.getSingleComment(commentID);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const getComments = createAsyncThunk(
   "comment/get-comments",
   async (productID, thunkAPI) => {
     try {
       return await commentService.getComments(productID);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const updateComment = createAsyncThunk(
+  "comment/update-comment",
+  async (commentData, thunkAPI) => {
+    try {
+      return await commentService.updateComment(commentData);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -45,9 +65,61 @@ export const commentSlice = createSlice({
   name: "comment",
   initialState: initialState,
   reducers: {
+    resetSingleComment: (state) => {
+      state.signleComment = null;
+    },
   },
   extraReducers: (buildeer) => {
     buildeer
+      // -------update comment---------
+      .addCase(updateComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateComment.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        const newComment={
+          user:action.payload[1],
+          ...action.payload[0]
+        }
+        const commentIndex = state.comments.findIndex(
+          (comment) => comment.id === newComment.id
+        );
+
+        if (commentIndex !== -1) {
+          state.comments[commentIndex] = newComment;
+        }
+        // state.updatedComment=true
+        state.message = "success";
+      })
+      .addCase(updateComment.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+
+        // state.message = action.payload.response.data.errors;
+        state.isLoading = false;
+      })
+      // -------update comment---------
+      // --------get single comment---------
+      .addCase(getSingleComment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSingleComment.fulfilled, (state, action) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.signleComment = action.payload;
+        state.message = "success";
+      })
+      .addCase(getSingleComment.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+
+        // state.message = action.payload.response.data.errors;
+        state.isLoading = false;
+      })
+      // --------get single comment---------
       // --------create comment---------
       .addCase(createComment.pending, (state) => {
         state.isLoading = true;
@@ -116,5 +188,6 @@ export const commentSlice = createSlice({
 });
 
 
+export const { resetSingleComment } = commentSlice.actions;
 
 export default commentSlice.reducer;

@@ -2,8 +2,18 @@ import { config } from "../../../utils/config";
 import axiosHttp from "../../../utils/axios-client";
 
 
-const getsearchedproducts = async (path) => {
-  const response = await axiosHttp.get(path);
+const getsearchedproducts = async (filters) => {
+  const response = await axiosHttp.get(`/get-products/`,{
+    params: {
+      query: filters.query,
+      min_price:100,
+      max_price: filters.maxPrice,
+      gender: filters.gender,
+      rate: filters.rating
+  }
+  });
+  console.log('hellowrold')
+  console.log(response)
   return response.data;
 };
 const getProducts = async () => {

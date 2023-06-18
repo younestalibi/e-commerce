@@ -3,9 +3,9 @@ import productService from "./productServices";
 
 export const getsearchedproducts = createAsyncThunk(
   "product/get-searched-products",
-  async (path,thunkAPI) => {
+  async (filters,thunkAPI) => {
     try {
-      return await productService.getsearchedproducts(path);
+      return await productService.getsearchedproducts(filters);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

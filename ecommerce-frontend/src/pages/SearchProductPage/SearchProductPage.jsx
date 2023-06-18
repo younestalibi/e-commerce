@@ -12,7 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts, getsearchedproducts, resetStateProduct } from '../../Provider/Features/Product/productSlice';
 import axiosHttp from '../../utils/axios-client';
 // import RangeFilter from '../../components/RangeFilter/RangeFilter';
-
+import InputRange from 'react-input-range';
+import 'react-input-range/lib/css/index.css';
+import ProductFilter from '../../components/ProductFilter/ProductFilter';
 
 const SearchProductPage = () => {
   // This should be replaced with your actual data
@@ -32,7 +34,7 @@ const SearchProductPage = () => {
   const dispatch=useDispatch()
   useEffect(() => {
     dispatch(resetStateProduct())
-    dispatch(getsearchedproducts('/get-products'));
+    dispatch(getsearchedproducts());
   }, []);
   const [currentPage, setCurrentPage] = useState();
   const [totalPages, setTotalPages] = useState();
@@ -55,6 +57,19 @@ const SearchProductPage = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  // const [value, setValue] = useState({ min: 0, max:500 });
+  // console.log(value)
+
+  const handleFilter = (filters) => {
+    // Implement your filter logic here
+    // Update the filteredProducts state with the filtered results
+    // Example: Make an API call to retrieve the filtered products based on the filters object
+    // Set the retrieved products in the filteredProducts state
+    console.log(filters); // Example log to see the filter criteria in the console
+    dispatch(resetStateProduct())
+    dispatch(getsearchedproducts(filters));
+  };
   return (
     
     <div>
@@ -74,9 +89,18 @@ const SearchProductPage = () => {
       </div>
       <div class="search-products-container">
       
-      <div class="left-column">        
-        <div className='search-products-filter'>
+      <div class="left-column">   
+      <ProductFilter onFilter={handleFilter} />
+     
+        {/* <div className='search-products-filter'>
           <b>Filter</b>
+
+          <InputRange
+            maxValue={1000}
+            minValue={0}
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+          />
           <div>
             <input type="checkbox" name="" id="woman" />
             <label htmlFor="woman">woman</label>
@@ -124,7 +148,7 @@ const SearchProductPage = () => {
             <input type="checkbox" name="" id="Babies" />
             <label htmlFor="Babies">Babies</label>
           </div>
-        </div>
+        </div> */}
       </div>
       <div class="right-column">
         {products.data&&products.data.map((product,i)=>(
