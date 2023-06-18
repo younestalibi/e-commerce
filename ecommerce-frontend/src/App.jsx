@@ -33,6 +33,7 @@ import OrdersList from './pages/Orders/OrdersList';
 import IndexLayout from './components/MainLayout/IndexLayout';
 import Test from './Test';
 import PaymentLayout from './components/MainLayout/PaymentLayout';
+import ViewOrder from './pages/Orders/ViewOrder/ViewOrder';
 function App() {
 
   const dispatch=useDispatch()
@@ -59,11 +60,12 @@ function App() {
             <Route path="/products" element={<SearchProductPage/>}/>
             <Route path="/products/:slug/:id" element={<SingleProduct/>}/>
             {/* <Route path="/shopping-cart" element={<ShoppingCart/>}/> */}
-            <Route path="/order-complete" element={<OrderComplete/>}/>
-            <Route path="/checkout" element={<Checkout/>}/>
+            
 
-            <Route path="/shopping-cart" element={<PaymentLayout />}>      
-              <Route index element={<ShoppingCart />} />
+            <Route path="/" element={<PaymentLayout />}>      
+              <Route path='/shopping-cart' element={<ShoppingCart />} />
+              <Route path="/order-complete" element={<OrderComplete/>}/>
+              <Route path="/checkout" element={<Checkout/>}/>
             </Route>
 
             
@@ -84,7 +86,7 @@ function App() {
             {/* <Route path="coupon" element={<AddCoupon />} /> */}
             {/* <Route path="coupon/:id" element={<AddCoupon />} /> */}
             <Route path="list-orders" element={<OrdersList />} />
-            {/* <Route path="order/:id" element={<ViewOrder />} /> */}
+            <Route path="view-order/:batch" element={<ViewOrder />} />
             <Route path="customers" element={<Customers />} />
             <Route path="list-categories" element={<CategoriesList />} />
             <Route path="form-category/:id?" element={<FormCategory />} />

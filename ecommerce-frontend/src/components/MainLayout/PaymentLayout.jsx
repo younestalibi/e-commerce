@@ -20,25 +20,23 @@ const PaymentLayout = () => {
             items={[
             {
                 title: 'Shopping Cart',
-                status: 'finish',
-                status: currentURL=='/shopping-cart' ? 'process' : currentURL=='/shopping-cart/checkout' ? 'finish' : currentURL=='/shopping-cart/order-complete' ? 'finish' : 'finish',
+                status: currentURL=='/shopping-cart' ? 'process' : currentURL=='/checkout' ? 'finish' :  'finish',
                 icon: <BsCartCheck/>,
             },
             {
                 title: 'Checkout',
-                status: 'process',
+                status: currentURL=='/shopping-cart' ? 'wait' : currentURL=='/checkout' ? 'process' : currentURL=='/order-complete' ? 'finish' : 'finish',
                 icon: <MdShoppingCartCheckout />,
             },
             {
                 title: 'Order Complete',
-                status: 'wait',
+                status: currentURL=='/shopping-cart' ? 'wait' : currentURL=='/checkout' ? 'wait' : currentURL=='/order-complete' ? 'process' : 'process',
                 icon: <LoadingOutlined />,
             },
             ]}
             />
             </div>
             <Outlet/>
-            hello wol
             {/* <Footer/> */}
         </div>
      );

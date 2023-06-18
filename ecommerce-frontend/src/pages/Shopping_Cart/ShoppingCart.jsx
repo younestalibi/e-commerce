@@ -149,7 +149,7 @@ const ShoppingCart = () => {
         selectedRowKeys,
         onChange: onSelectChange,
     };
-    console.log(selectedRowKeys)
+    // console.log(selectedRowKeys)
     const hasSelected = selectedRowKeys.length > 0;
 
 
@@ -225,7 +225,24 @@ const ShoppingCart = () => {
                     </div>
 
                 </div>
+
             </div>
+            <div className="shopping-cart-div-1-cards">
+                        <div className='shopping-cart-div-1-cards-card1'>
+                            <a className='shopping-cart-div-1-cards-card1-icon'><i class="fa-solid fa-receipt"></i></a>
+                            <div className='shopping-cart-div-1-cards-card1-text1'>Order by 10pm for free next day delivery on Orders overs $100</div>
+                            <div className='shopping-cart-div-1-cards-card1-text2'>We deliver Monday to Saturday - excluding Holidays</div>
+                        </div>
+                        <div className='shopping-cart-div-1-cards-card2'>
+                            <a className='shopping-cart-div-1-cards-card2-icon'><i class="fa-solid fa-box"></i></a>
+                            <div className='shopping-cart-div-1-cards-card2-text1'>Free next day delivery to stores.</div>
+                            <div className='shopping-cart-div-1-cards-card2-text2'>Home delivery is $4.99 for orders under $100 and is FREE for all orders over $100</div>
+                        </div>
+                        <div className='shopping-cart-div-1-cards-card3'>
+                            <a className='shopping-cart-div-1-cards-card3-icon'><i class="fa-solid fa-truck"></i></a>
+                            <div className='shopping-cart-div-1-cards-card3-text'>30 days to return it to us for a refund. We have made returns SO EASY - you can now return your order to a store or send it with FedEx FOR FREE</div>
+                        </div>
+                    </div>
             <CustomAlert
                 setOpen={setOpen}
                 open={open}

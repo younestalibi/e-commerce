@@ -20,6 +20,27 @@ export const createOrder = createAsyncThunk(
     }
   }
 );
+
+export const getIndividualOrders = createAsyncThunk(
+  "order/get-individual-orders",
+  async (batchID, thunkAPI) => {
+    try {
+      return await orderService.getIndividualOrders(batchID);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+export const updateStatus = createAsyncThunk(
+  "order/update-status-orders",
+  async (statusData, thunkAPI) => {
+    try {
+      return await orderService.updateStatus(statusData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const resetStateOrder = createAction("Reset_all");
 
 const initialState = {
@@ -35,6 +56,37 @@ export const orderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(updateStatus.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateStatus.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        console.log(action.payload)
+        // state.orders = action.payload;
+      })
+      .addCase(updateStatus.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+      .addCase(getIndividualOrders.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getIndividualOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.orderlist = action.payload;
+      })
+      .addCase(getIndividualOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
       .addCase(getOrders.pending, (state) => {
         state.isLoading = true;
       })

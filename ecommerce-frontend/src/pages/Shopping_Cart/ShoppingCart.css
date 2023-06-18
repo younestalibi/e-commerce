@@ -1,6 +1,7 @@
 .cart-wrapper{
     display: grid;
     grid-template-columns: 70% 30%;
+    gap: 30px;
 }
 
 
@@ -45,3 +46,120 @@
     border-radius: 30px;
     border:1px solid rgba(0, 0, 0, 0.233);
 }
+
+
+
+
+
+/* ---------------- */
+.shopping-cart-div-1-line-thin{
+    opacity: 0.1;
+}
+
+.shopping-cart-div-1-cards{
+    display: flex;
+}
+
+.shopping-cart-div-1-texts{
+    margin-top: 24px;
+    display: flex;
+}
+
+.shopping-cart-div-1-texts-text-1{
+    color: #E9AA7A;
+}
+
+.shopping-cart-div-1-texts-text-2{
+    color: #E9AA7A;
+    position: absolute;
+    right: 0;
+    margin: 0;
+    margin-right: 50px;
+    text-align: right;
+}
+
+.shopping-cart-div-1-cards-card1{
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 6%;
+    width: 300px;
+    margin-top: 20px;
+}
+
+.shopping-cart-div-1-cards-card1-icon{
+    display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: #ffeee2;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #E98B44;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.shopping-cart-div-1-cards-card1-text1{
+    margin: 20px 15px;
+}
+
+.shopping-cart-div-1-cards-card1-text2{
+    margin: 20px 15px;
+    opacity: 0.6;
+}
+
+.shopping-cart-div-1-cards-card2{
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 6%;
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.shopping-cart-div-1-cards-card2-icon{
+    display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: #ffeee2;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #E98B44;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.shopping-cart-div-1-cards-card2-text1{
+    margin: 20px 15px;
+}
+
+.shopping-cart-div-1-cards-card2-text2{
+    margin: 20px 15px;
+    opacity: 0.6;
+}
+
+.shopping-cart-div-1-cards-card3{
+    border: 1px solid rgb(228, 228, 228);
+    border-radius: 6%;
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.shopping-cart-div-1-cards-card3-icon{
+    display: inline-block;
+	height: 40px;
+	width: 40px;
+	background-color: #ffeee2;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 50%;
+	color: #E98B44;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.shopping-cart-div-1-cards-card3-text{
+    margin: 20px 15px;
+    opacity: 0.6;
+}
+/* ---------------- */
