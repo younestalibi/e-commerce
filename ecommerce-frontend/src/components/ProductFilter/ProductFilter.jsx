@@ -9,7 +9,7 @@ const ProductFilter = ({ onFilter }) => {
 
  
 
-  const [value, setValue] = useState({ min: 0, max:500 });
+  const [value, setValue] = useState({ min: 0, max:1000 });
   console.log(value)
     const ratingChanged = (newRating) => {
         setRating(newRating)

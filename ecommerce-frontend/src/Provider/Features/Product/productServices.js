@@ -3,17 +3,16 @@ import axiosHttp from "../../../utils/axios-client";
 
 
 const getsearchedproducts = async (filters) => {
-  const response = await axiosHttp.get(`/get-products/`,{
-    params: {
-      query: filters.query,
-      min_price:100,
-      max_price: filters.maxPrice,
-      gender: filters.gender,
-      rate: filters.rating
+  console.log(filters)
+
+  const response = await axiosHttp.get(filters.path,{
+    params:filters.filters
   }
-  });
-  console.log('hellowrold')
-  console.log(response)
+  );
+  console.log('---------------')
+  console.log(response.data)
+  console.log('---------------')
+
   return response.data;
 };
 const getProducts = async () => {
@@ -33,7 +32,6 @@ const getSingleProduct = async (id) => {
     return response.data;
 };
 const updateProduct = async (product) => {
-    console.log(product.get('id'))
     const response = await axiosHttp.post(`/products/${product.get('id')}`,product,config);
   console.log(response)
     return response.data;

@@ -102,6 +102,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.products = action.payload;
+        state.getProducts=true
       })
       .addCase(getsearchedproducts.rejected, (state, action) => {
         state.isLoading = false;
@@ -147,6 +148,7 @@ export const productSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.singleProduct = action.payload.product
+        state.suggestionProduct=action.payload.products
         // state.ProductData = action.payload.product;
       })
       .addCase(getSingleProduct.rejected, (state, action) => {

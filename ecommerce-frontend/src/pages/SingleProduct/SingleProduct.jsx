@@ -8,7 +8,7 @@ import {CiMenuKebab} from 'react-icons/ci'
 import SectionTitle from '../../components/SectionTitle/SectionTitle';
 import FilterSlider from '../../components/FilterSlider/FilterSlider';
 import { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getSingleProduct } from '../../Provider/Features/Product/productSlice';
@@ -28,11 +28,12 @@ import { comment } from 'postcss';
 
 const SingleProduct = () => {
     const images=[]
+    const location=useLocation()
     const divRef = useRef(null);
     const popular=[1,2,3,4] 
     const {id}=useParams()
     const userState= useSelector((state) => state.auth);
-    const {isError,isLoading,isSuccess,message,singleProduct} = useSelector((state) => state.product);
+    const {isError,isLoading,isSuccess,message,singleProduct,suggestionProduct} = useSelector((state) => state.product);
     const commentState= useSelector((state) => state.comment);
     const totalRate= commentState.comments.reduce((accumulator, currentNumber) => accumulator + parseInt(currentNumber.rate), 0);
     const averageRate =NearestNumber(totalRate / commentState.comments.length);
@@ -40,7 +41,12 @@ const SingleProduct = () => {
     useEffect(()=>{
         dispatch(getSingleProduct(id))
         dispatch(getComments(id))
-    },[])
+    },[location.pathname])
+    console.log(location.pathname)
+    console.log(isLoading)
+    useEffect(()=>{
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    },[location.pathname])
     const specificDivRef = useRef(null);
     const [commentOpen,setCommentOpen]=useState(false)
     const triggerComment=()=>{
@@ -456,9 +462,8 @@ useEffect(()=>{
             </div>
             <SectionTitle title='YOU MAY LIKE'/>
             <div className='popular-items'>
-                {popular.map((e,i)=>(
-                    // <ProductCard/>
-                    <div>asdf</div>
+                {suggestionProduct&&suggestionProduct.map((e,i)=>(
+                    <ProductCard product={e}/>
                 ))}
             </div>
 

@@ -30,24 +30,35 @@ const SearchProductPage = () => {
     {id: 3, name: 'Product 3', price: '$300'},
     // add more dummy products as needed
   ];
-  var {products,isError,isLoading,isSuccess,message,deletedProduct} = useSelector((state) => state.product);
+  var {products,isError,isLoading,getProducts,isSuccess,message,deletedProduct} = useSelector((state) => state.product);
   const dispatch=useDispatch()
+  const [filter,setFilter]=useState({
+    query: null,
+    minPrice:null,
+    maxPrice:null,
+    gender:null,
+    rating:null
+  })
+  const [path,setPath]=useState('/get-products')
   useEffect(() => {
-    dispatch(resetStateProduct())
-    dispatch(getsearchedproducts());
+    // dispatch(resetStateProduct())
+    dispatch(getsearchedproducts({filter,path}));
   }, []);
   const [currentPage, setCurrentPage] = useState();
   const [totalPages, setTotalPages] = useState();
   useEffect(()=>{
     if(products && isSuccess){
+      console.log(products.current_page)
       setCurrentPage(products.current_page);
       setTotalPages(products.last_page);
     }
   },[isSuccess])
 
   const fetchData =(pageNumber) => {
-    dispatch(resetStateProduct())
-    dispatch(getsearchedproducts(`/get-products?page=${pageNumber}`));
+    console.log(pageNumber)
+    setPath(`/get-products?page=${pageNumber}`)
+    // dispatch(resetStateProduct())
+    dispatch(getsearchedproducts({filter,path}));
   };
   useEffect(() => {
     fetchData(currentPage);
@@ -67,8 +78,18 @@ const SearchProductPage = () => {
     // Example: Make an API call to retrieve the filtered products based on the filters object
     // Set the retrieved products in the filteredProducts state
     console.log(filters); // Example log to see the filter criteria in the console
+    setFilter({
+      query: null,
+      minPrice:filters.minPrice,
+      maxPrice:filters.maxPrice,
+      gender:filters.gender,
+      rating:filters.rating
+    })
+    // setCurrentPage(1);
+    // setTotalPages(null);
     dispatch(resetStateProduct())
-    dispatch(getsearchedproducts(filters));
+    dispatch(getsearchedproducts({filters,path}));
+    
   };
   return (
     

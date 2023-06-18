@@ -4,6 +4,7 @@ import image from '../../assets/img.png'
 import { useNavigate } from 'react-router-dom';
 const ProductCard = (props) => {
 const {product}=props
+console.log(product)
 const navigate=useNavigate()
 const handleSelect=()=>{
   navigate(`/products/${product.slug}/${product.id}`)
@@ -11,8 +12,8 @@ const handleSelect=()=>{
   if(props){
     // console.log(props)
     return ( 
-      <div className="product-card" onClick={handleSelect}>
-        <img src={`${import.meta.env.VITE_SERVER_URL}/storage/${product.images[0].image_path}`} alt={'product.title'} className="product-image" />
+      <div className="product-card shadow" onClick={handleSelect}>
+        <img  src={`${import.meta.env.VITE_SERVER_URL}/storage/${product.images[0].image_path}`} alt={'product.title'} className="product-image" />
         <div>
         <h2 className="product-title">{product.name}</h2>
         <div className='product-card-footer'>
