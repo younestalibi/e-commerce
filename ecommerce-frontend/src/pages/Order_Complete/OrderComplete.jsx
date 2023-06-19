@@ -1,10 +1,12 @@
 import './OrderComplete.css';
 import dress from '../../assets/Shopping_Cart/dress.jpg'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiFillDelete, AiFillEye } from 'react-icons/ai';
-import { createOrder } from '../../Provider/Features/Order/orderSlice';
+import { createOrder, resetStateOrder } from '../../Provider/Features/Order/orderSlice';
+import { useEffect } from 'react';
+import { toast } from "react-toastify";
 
 
 const columns = [
@@ -52,7 +54,29 @@ export default function OrderComplete(){
     const { firstName, lastName, email, phone, address, city, zipCode } = location.state;
     console.log(location.state)
     const {cart,isLoading} = useSelector((state) => state.cart);
+    // const {message,isError,isSuccess,createdOrder}=useSelector((state)=>state.order)
+    const orderState=useSelector((state)=>state.order)
+    // useEffect(() => {
+    //     console.log(orderState)
+    //     if (orderState.isSuccess && orderState.createdOrder) {
+    //     toast.success("Product Deleted Successfullly!");
+    //     }
+    //     if (orderState.isError) {
+    //     toast.error("Insufficient quantity available for one or more products");
+    //     }
+    // }, [orderState.isSuccess, orderState.isError, orderState.isLoading]);
+    // console.log(orderState.createdOrder)
+    // console.log(orderState.isSuccess)
     console.log(cart)
+    // useEffect(()=>{
+    //     if (orderState.isSuccess && orderState.createdOrder) {
+    //         toast.success("Order Added Successfullly!");
+    //       }
+    //       console.log('hello world ')
+    //     if (orderState.isError) {
+    //         toast.error("Something Went Wrong!");
+    //     }
+    // },[orderState.isSuccess,orderState.isLoading,orderState.isError])
     const data = [];
     var totalCart=0
     var discount=0
@@ -70,7 +94,7 @@ export default function OrderComplete(){
             src={`${import.meta.env.VITE_SERVER_URL}/storage/${item.image && item.image}`}
         />,
         quantity:item.quantity,
-        price:item.price,
+        // price:item.price,
         total:item.quantity*item.price,
         // action: (
         //     <>
@@ -88,6 +112,7 @@ export default function OrderComplete(){
         });
     }
     const dispatch=useDispatch()
+    const navigate=useNavigate()
     const handleOrder=()=>{
         const orders = [];
         const formData = new FormData();
@@ -108,8 +133,14 @@ export default function OrderComplete(){
             })
         }
         formData.append('orders', JSON.stringify(orders));
-        console.log(orders)
+        // console.log(orders)
+        // dispatch(resetStateOrder())
+
         dispatch(createOrder({orders:orders}))
+        setTimeout(()=>{
+            navigate('/')
+        },500)
+
 
     }
     return(

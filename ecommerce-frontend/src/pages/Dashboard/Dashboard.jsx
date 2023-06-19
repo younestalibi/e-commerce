@@ -5,6 +5,10 @@ import { DualAxes } from '@ant-design/plots';
 import './Dashboard.css'
 import { Table } from "antd";
 import PathNavigation from "../../components/PathNavigation/PathNavigation";
+
+
+import { ArrowDownOutlined, ArrowUpOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Statistic } from 'antd';
 // const columns = [
 //   {
 //     title: "SNo",
@@ -245,8 +249,54 @@ return (
     <div>
       
       <h2 className="mb-4">Dashboard</h2>
+      
       <PathNavigation paths={['Home', 'Dashboard']} currentPage={'Analystic'} />
+      {/* <Row gutter={16}> 
+        <Col span={8}>
+          <Card bordered={false}>
+            <Statistic
+              title="Active"
+              value={11.28}
+              precision={2}
+              valueStyle={{
+                color: '#3f8600',
+              }}
+              prefix={<ArrowUpOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card bordered={false}>
+            <Statistic
+              title="Active"
+              value={11.28}
+              precision={2}
+              valueStyle={{
+                color: '#3f8600',
+              }}
+              prefix={<ArrowUpOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={8}>
+          <Card bordered={false}>
+            <Statistic
+              title="Idle"
+              value={9.3}
+              precision={2}
+              valueStyle={{
+                color: '#cf1322',
+              }}
+              prefix={<ArrowDownOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+      </Row> */}
       <div className="d-flex justify-content-between align-items-center gap-3">
+        
         <div className="shadow-sm d-flex justify-content-between align-items-end flex-grow-1 bg-white p-3 roudned-3">
           <div>
             <p className="desc">Total sells</p>

@@ -41,6 +41,16 @@ export const deleteProduct = createAsyncThunk(
       }
     }
   );
+export const getSuggestion = createAsyncThunk(
+    "product/get-suggestion-products",
+    async ( thunkAPI) => {
+    try {
+        return await productService.getSuggestion();
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error);
+    }
+    }
+);
 export const getSingleProduct = createAsyncThunk(
     "product/get-signle-product",
     async (id, thunkAPI) => {
@@ -79,6 +89,21 @@ export const productSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(getSuggestion.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSuggestion.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.suggestedProduct = action.payload;
+      })
+      .addCase(getSuggestion.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
       .addCase(getProducts.pending, (state) => {
         state.isLoading = true;
       })

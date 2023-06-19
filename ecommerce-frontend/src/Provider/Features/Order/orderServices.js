@@ -8,7 +8,25 @@ const getOrders = async () => {
 };
 const createOrder = async (order) => {
   const response = await axiosHttp.post(`/orders`, order, config);
+  // console.log(response.response)
+  // if(response.response.status===400){
+  //   throw new Error('response.response.data.message')
+
+  // }else{
+  //   return response.data;
+  // }
   return response.data;
+  // return response.data;
+  // try {
+  //   const response = await axiosHttp.post(`/orders`, order, config);
+  // console.log(response)
+  // return response.data;
+    
+  //   // Process the received data
+  // } catch (error) {
+  //   // Handle the error here if needed
+  //   console.log(error)
+  // }
 };
 const updateStatus = async (statusData) => {
   // console.log(statusData)

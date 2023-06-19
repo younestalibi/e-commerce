@@ -15,9 +15,13 @@ import axiosHttp from '../../utils/axios-client';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import ProductFilter from '../../components/ProductFilter/ProductFilter';
+import SearchLoader from '../../components/Loader/SearchLoader';
+import { useLocation, useParams } from 'react-router-dom';
 
 const SearchProductPage = () => {
   // This should be replaced with your actual data
+  const {category}=useParams()
+  console.log(category)
   const dummyData = [
     {id: 1, name: 'Product 1', price: '$100'},
     {id: 2, name: 'Product 2', price: '$200'},
@@ -33,6 +37,7 @@ const SearchProductPage = () => {
   var {products,isError,isLoading,getProducts,isSuccess,message,deletedProduct} = useSelector((state) => state.product);
   const dispatch=useDispatch()
   const [filter,setFilter]=useState({
+    category:category,
     query: null,
     minPrice:null,
     maxPrice:null,
@@ -40,10 +45,14 @@ const SearchProductPage = () => {
     rating:null
   })
   const [path,setPath]=useState('/get-products')
+  const location=useLocation()
   useEffect(() => {
-    // dispatch(resetStateProduct())
+    dispatch(resetStateProduct())
     dispatch(getsearchedproducts({filter,path}));
+    // console.log('now')
+   
   }, []);
+console.log(products)
   const [currentPage, setCurrentPage] = useState();
   const [totalPages, setTotalPages] = useState();
   useEffect(()=>{
@@ -79,6 +88,7 @@ const SearchProductPage = () => {
     // Set the retrieved products in the filteredProducts state
     console.log(filters); // Example log to see the filter criteria in the console
     setFilter({
+      category:category,
       query: null,
       minPrice:filters.minPrice,
       maxPrice:filters.maxPrice,
@@ -171,10 +181,15 @@ const SearchProductPage = () => {
           </div>
         </div> */}
       </div>
-      <div class="right-column">
-        {products.data&&products.data.map((product,i)=>(
+      <div class="right-column d-flex">
+        
+        {products.data?
+        products.data.map((product,i)=>(
             <ProductCard product={product}/>
-        ))}
+        ))
+        :
+        <SearchLoader/>
+        }
       </div>
       </div>
       <div>

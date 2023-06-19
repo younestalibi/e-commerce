@@ -8,6 +8,7 @@ import orderSlice from "../Features/Order/orderSlice";
 import commentSlice from "../Features/Comment/commentSlice";
 import favoritesSlice from "../Features/Favorites/favoritesSlice";
 import cartSlice from "../Features/Cart/cartSlice";
+import filterSlice from "../Features/Filter/filterSlice";
 // import blogReducer from "../features/blogs/blogSlice";
 // import colorReducer from "../features/color/colorSlice";
 // import enquiryReducer from "../features/enquiry/enquirySlice";
@@ -24,6 +25,8 @@ export const store = configureStore({
     Category: categorySlice,
     comment: commentSlice,
     cart: cartSlice,
+    filter:filterSlice ,
+
 
     // blogs: blogReducer,
     // color: colorReducer,

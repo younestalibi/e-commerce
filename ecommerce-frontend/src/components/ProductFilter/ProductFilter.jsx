@@ -3,6 +3,7 @@ import './ProductFilter.css';
 import InputRange from 'react-input-range';
 import 'react-input-range/lib/css/index.css';
 import ReactStars from 'react-stars';
+import { useDispatch } from 'react-redux';
 const ProductFilter = ({ onFilter }) => {
   const [gender, setGender] = useState('');
   const [rating, setRating] = useState('');
@@ -23,6 +24,28 @@ const ProductFilter = ({ onFilter }) => {
           rating
         });
       };
+
+
+  //     const dispatch = useDispatch();
+  // const filter = useSelector((state) => state.filter);
+  // console.log(filter)
+
+  // const handleMinPriceChange = (e) => {
+  //   dispatch(setMinPrice(e.target.value));
+  // };
+
+  // const handleMaxPriceChange = (e) => {
+  //   dispatch(setMaxPrice(e.target.value));
+  // };
+
+  // const handleGenderChange = (e) => {
+  //   dispatch(setGender(e.target.value));
+  // };
+
+  // const handleRatingChange = (e) => {
+  //   dispatch(setRating(e.target.value));
+  // };
+
   return (
     <div className="product-filter">
       <h3 className="filter-heading">Filters</h3>

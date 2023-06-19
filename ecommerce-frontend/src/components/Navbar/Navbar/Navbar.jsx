@@ -1,13 +1,16 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {GoSearch} from 'react-icons/go'
 import {BsBagCheck} from 'react-icons/bs'
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../Provider/Features/Auth/authSlice";
+import axiosHttp from "../../../utils/axios-client";
+import logo from '../../../assets/logo-lebsa.jpeg'
 
 function Navbar() {
+    const location=useLocation()
     const { user, isError, isSuccess, isLoading, message} = useSelector((state) => state.auth);
 	const navRef = useRef();
     const [search,setSearch]=useState('')
@@ -17,17 +20,110 @@ function Navbar() {
 			"responsive_nav"
 		);
 	};
+    useEffect(()=>{
+        setSearchResults([])
+        setSearch('')
+
+    },[location])
     // console.log(user)
+
+    // const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    // const [searchResults, setSearchResults] = useState([]);
+    const [typingTimeout, setTypingTimeout] = useState(null);
+  
+    const handleSearch = (query) => {
+      // Cancel previous timeout if exists
+      if (typingTimeout) {
+        clearTimeout(typingTimeout);
+      }
+
+      if (query === '') {
+        setSearchResults([]);
+        return;
+      }
+  
+      // Set a new timeout to delay the search request
+      const newTimeout = setTimeout(() => {
+        performSearch(query);
+      }, 500); // Adjust the delay time (in milliseconds) according to your needs
+  
+      // Update the typingTimeout state
+      setTypingTimeout(newTimeout);
+    };
+  
+    const performSearch = async (query) => {
+      try {
+        const response = await axiosHttp.get(`/search?query=${search}`);
+        console.log(response)
+        setSearchResults(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    useEffect(() => {
+      // Cleanup the timeout when component unmounts
+      return () => {
+        if (typingTimeout) {
+          clearTimeout(typingTimeout);
+        }
+      };
+    }, []);
+
+    // const handleSearch = async () => {
+    //     try {
+    //     const response = await axiosHttp.get(`/search?query=${search}`);
+    //     setSearchResults(response.data);
+    //     } catch (error) {
+    //     console.error(error);
+    //     }
+    // };
+
 
 	return (
 		<header>
-			<div className="nav-title">MY-LOGO</div>
+			<div className="nav-title">
+                <img style={{width:'70px',height:"70px",objectFit:'contain'}} src={logo} alt="" />
+                <span>L-EBSA</span>
+            </div>
             <div>
             <div className="nav-form-control">
                 {/* <div></div> */}
                 <input type="value"
-                onChange={(e)=>{setSearch(e.target.value)}}
+                value={search}
+                onChange={(e)=>{
+                    setSearch(e.target.value)
+                    handleSearch(e.target.value);
+                }}
                 />
+                <ul class="list-group list-search" >
+                {searchResults.length>0? searchResults.map((result,i) => (
+                    <Link to={`/products/${result.slug}/${result.id}`}> 
+                    <li class="list-group-item d-flex align-items-center"key={i}>
+                        <img className="border shadow-sm rounded-circle " style={{width:'40px',height:'40px',objectFit:'contain'}} src={`${import.meta.env.VITE_SERVER_URL}/storage/${result.images.length>0 && result.images[0].image_path}`} alt="" />
+                        
+                        <span className="mx-3" >{result.name}</span>
+                    </li>
+                    </Link>
+                ))
+                :
+                search.length>0&&
+                <div className="card d-flex justify-content-center align-items-center">
+                    <div className="loading-search bg-white">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            
+                }
+                   
+                </ul>
+                
+                
                 {search.length==0 &&
                 <label>
                     <span style={{transitionDelay:'0ms'}}>S</span>
@@ -54,6 +150,7 @@ function Navbar() {
                 <GoSearch/>
                 
             </div>
+            
             </div>
 			<div className="nav-menu" ref={navRef}>
 				{/* <Link className='nav-link' to="/">Store</Link> */}
@@ -83,6 +180,7 @@ function Navbar() {
                     <p className="mb-0">{user&&user.email}</p>
                     </div>
                     <div className="dropdown-menu w-auto" aria-labelledby="dropdownMenuLink">
+                        {user.role==='admin'&&
                         <li>
                         <Link
                             className="dropdown-item py-1 mb-1"
@@ -92,6 +190,8 @@ function Navbar() {
                             View Profile
                         </Link>
                         </li>
+                        }
+                        
                         <li>
                         <Link
                             className="dropdown-item py-1 mb-1"

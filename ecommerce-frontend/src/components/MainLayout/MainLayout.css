@@ -57,7 +57,7 @@
     transition: 0.3s;
   }
   main {
-    height: 85vh;
+    /* height: 85vh; */
     overflow-y: scroll;
     background-color: transparent !important;
   }

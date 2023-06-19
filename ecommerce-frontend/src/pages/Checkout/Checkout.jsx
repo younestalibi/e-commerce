@@ -225,9 +225,9 @@ export default function Checkout(){
                     />
                     {zipCodeError && <div className="invalid-feedback">{zipCodeError}</div>}
                 </div>
-                <button className="submit-button btn btn-outline-info" type="submit">
+                {/* <button className="submit-button btn btn-outline-info" type="submit">
                     Place Order
-                </button>
+                </button> */}
                 </form>
                 </div>
 

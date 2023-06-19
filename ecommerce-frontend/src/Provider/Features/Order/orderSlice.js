@@ -109,13 +109,21 @@ export const orderSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
+        // if(action.payload.message){
+        //   console.log(action.payload.message)
+        // }
+        console.log('heell')
+        // console.log(createOrder)
+        console.log(action.payload)
         state.createdOrder = action.payload;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-        state.message = action.error;
+        // console.log('eerr')
+        // console.log(action)
+        // state.message = action.error;
       })
       .addCase(resetStateOrder, () => initialState);
   },

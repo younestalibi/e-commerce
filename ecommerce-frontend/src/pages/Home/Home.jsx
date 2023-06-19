@@ -4,19 +4,35 @@ import Navbar from '../../components/Navbar/Navbar/Navbar';
 import './Home.css'
 import SimpleImageSlider from "react-simple-image-slider";
 import image from '../../assets/woman.png'
+import image2 from '../../assets/woman2.png'
+
 import Hightlights from '../../components/home/Highlights/Highlights';
 import ProductCard from '../../components/ProductCard/ProductCard';
 import Footer from '../../components/Footer/Footer';
 import BrandLogos from '../../components/BrandLogos/BrandLogos';
 import CenteredTitle from '../../components/CenteredTitle/CenteredTitle';
 import HomeBanner from '../../components/home/HomeBanner/HomeBanner';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getSuggestion } from '../../Provider/Features/Product/productSlice';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
+    const location=useLocation()
+    useEffect(()=>{
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    },[location.pathname])
+    const dispatch=useDispatch()
+    const {products,suggestedProduct,isLoading}=useSelector((state)=>state.product)
+    useEffect(()=>{
+        dispatch(getSuggestion())
+    },[])
+
     const images = [
         { url:image },
-        { url:image },
-        { url:image },
-        { url:image }
+        { url:image2 },
+        // { url:image },
+        // { url:image }
       ];
     const popular=[1,2,3,4]
     return ( 
@@ -41,9 +57,8 @@ const Home = () => {
                 <div>
                     <CenteredTitle title='THIS WEEKS HIGHLIGHTS'/>
                     <div className='popular-items'>
-                        {popular.map((e,i)=>(
-                            // <ProductCard/>
-                            <div>asdfad</div>
+                        {suggestedProduct&&suggestedProduct.map((e,i)=>(
+                            <ProductCard product={e}/>
                         ))}
                     </div>
                 </div>

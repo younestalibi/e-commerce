@@ -59,6 +59,7 @@ function FormCategory() {
 
         if(isEdite){
           formData.append('id', id);
+          // alert("he")
           dispatch(updateCategory(formData))
         }else{
           dispatch(createCategory(formData))

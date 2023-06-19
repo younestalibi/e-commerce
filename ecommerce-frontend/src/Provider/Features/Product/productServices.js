@@ -23,6 +23,11 @@ const createProduct = async (product) => {
   const response = await axiosHttp.post(`/product`, product, config);
   return response.data;
 };
+const getSuggestion = async () => {
+  const response = await axiosHttp.get(`/products-suggestions`);
+  console.log(response)
+  return response.data;
+};
 const deleteProduct = async (id) => {
     const response = await axiosHttp.delete(`/products/${id}`);
     return response.data;
@@ -42,6 +47,7 @@ const productService = {
   deleteProduct,
   updateProduct,
   getSingleProduct,
+  getSuggestion,
   getsearchedproducts
 };
 

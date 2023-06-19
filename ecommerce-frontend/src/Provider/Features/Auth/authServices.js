@@ -9,6 +9,17 @@ const login = async (user) => {
   if (response.data) {
     localStorage.setItem("user", response.data.token);
   }
+  // if(response.response.status===422){
+  //   return new Error(response.response.data.errors)
+  // }
+  return response.data;
+};
+const register = async (user) => {
+  const response = await axiosHttp.post(`/register`,user);
+  console.log(response)
+  if (response.data) {
+    localStorage.setItem("user", response.data.token);
+  }
   return response.data;
 };
 const logout = async () => {
@@ -16,8 +27,9 @@ const logout = async () => {
   localStorage.removeItem("user");
   return response.data;
 };
-const getUser = async (user) => {
+const getUser = async () => {
   const response = await axiosHttp.get(`/user`);
+  console.log(response.data)
   return response.data;
 };
 
@@ -38,9 +50,10 @@ const getUser = async (user) => {
 const authService = {
   login,
   getUser,
+  register,
   // getOrders,
   // getOrder,
-  logout
+  logout,
 };
 
 export default authService;

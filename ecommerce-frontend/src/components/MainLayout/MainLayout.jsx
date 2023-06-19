@@ -27,12 +27,16 @@ const MainLayout = () => {
   const location = useLocation();
   const dispatch=useDispatch()
   const { user, isError, isSuccess, isLoading, message} = useSelector((state) => state.auth);
+  
   useEffect(() => {
     console.log(isSuccess,user)
     // alert('hi')
     if (!user) {
       navigate("/");
     } 
+    if(user.role==='user'){
+      navigate('/')
+    }
   }, [location]);
   const [collapsed, setCollapsed] = useState(false);
   const {

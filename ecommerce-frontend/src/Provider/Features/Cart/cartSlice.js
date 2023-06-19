@@ -4,22 +4,7 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 
 const initialState = {
     cart: [
-        {color: "#910d0d",
-        id: 3,
-        image: "product/P9Fz9PoyMChdZATHQqEoYWVgZqLExSFp9wk2JCrM.png",
-        name: "younes",
-        price: 234,
-        quantity: 1,
-        slug:'service',
-        size: "S"},
-        {color: "#910d0d",
-        id: 9,
-        image: "product/P9Fz9PoyMChdZATHQqEoYWVgZqLExSFp9wk2JCrM.png",
-        name: "younes",
-        price: 234,
-        slug:'service',
-        quantity: 1,
-        size: "S"},
+   
     ],
     isError: false,
     isLoading: false,

@@ -23,6 +23,7 @@ import { NearestNumber } from '../../utils/NearestNumber';
 import { addToFavorites, removeFromFavorites } from '../../Provider/Features/Favorites/favoritesSlice';
 import { addToCart } from '../../Provider/Features/Cart/cartSlice';
 import { comment } from 'postcss';
+import Loader from '../../components/Loader/Loader';
 
 
 
@@ -252,231 +253,237 @@ useEffect(()=>{
         }
         dispatch(updateComment(commentData))
     }
-
-    return ( 
-        <div className='signle-product-container'>
-            <div className="single-product-flex-container">
-                <div className="single-product-grid-item ">
-                    {/* <ProductDisplay images={singleProduct&&singleProduct.images}/> */}
-                    <ImageGallery thumbnailPosition='left' items={images} />
-                    <SectionTitle title='CUSTOMER REVIEWS'/>
-                </div>
-                <div className="single-product-grid-item">
-                    <div className='signle-product-title'>{singleProduct&&singleProduct.name}</div>
-                    <div className='signle-product-title-review'>                       
-                        <div>
-                            <ReactStars  edit={false} count={5} size={35} value={averageRate} color2={'rgb(255, 166, 0)'} />                            
-                        </div>
-                        <div>
-                            <b><span>{commentState.comments.length}</span> review</b>
-                        </div>
-                        {isFavorite?
-                        <div className='d-flex align-items-center product-favorites'
-                        onClick={handleFavorite}
-                        >
-                            <AiTwotoneHeart color='rgb(255, 30, 67)'/>
-                            {/* <span ><b>Remove from favorites</b></span> */}
-                        </div>
-                        :
-                        <div className='d-flex align-items-center product-favorites'
-                        onClick={handleFavorite}
-                        >
-                            <AiOutlineHeart />
-                            {/* <span ><b>Add to favorites</b></span> */}
-                        </div>
-                        }
-                        
-                    </div>
-                    <div class="signle-product-pricing">
-                        <span class="signle-product-new-price">{`${singleProduct&&singleProduct.price}MAD`}</span>
-                    </div>
-                    <div className='signle-product-sold'>
-                        <span>42 </span>
-                        <span>SOLD</span>
-                    </div>
+    if(isLoading){
+        return ( <Loader/>)
+    }
+    else if(isSuccess && !isLoading){
+        return ( 
+            <div className='signle-product-container'>
                 
-                    <div className='product-options-container'>
-                        <span><b>Color:</b> {selectedColor}</span>
-                        <div className="color-options">
-                            {colors.length>0&&colors.map((color) => (
-                            <div
-                                key={color}
-                                className={`color-option ${selectedColor === color ? 'selected' : ''}`}
-                                style={{ backgroundColor: color }}
-                                onClick={() => handleColorSelection(color)}
-                            ></div>
-                            ))}
-                        </div>
+                <div className="single-product-flex-container">
+                    <div className="single-product-grid-item ">
+                        {/* <ProductDisplay images={singleProduct&&singleProduct.images}/> */}
+                        <ImageGallery thumbnailPosition='left' items={images} />
+                        <SectionTitle title='CUSTOMER REVIEWS'/>
                     </div>
-                    <div className='product-options-container'>
-                        <span><b>Size:</b> {selectedSize}</span>
-                        <div className="size-options">
-                            {sizes.length>0 && sizes.map((size) => (
-                            <div
-                                key={size}
-                                className={`size-option ${selectedSize === size ? 'selected' : ''}`}
-                                onClick={() => handleSizeSelection(size)}
+                    <div className="single-product-grid-item">
+                        <div className='signle-product-title'>{singleProduct&&singleProduct.name}</div>
+                        <div className='signle-product-title-review'>                       
+                            <div>
+                                <ReactStars  edit={false} count={5} size={35} value={averageRate} color2={'rgb(255, 166, 0)'} />                            
+                            </div>
+                            <div>
+                                <b><span>{commentState.comments.length}</span> review</b>
+                            </div>
+                            {isFavorite?
+                            <div className='d-flex align-items-center product-favorites'
+                            onClick={handleFavorite}
                             >
-                                {size}
+                                <AiTwotoneHeart color='rgb(255, 30, 67)'/>
+                                {/* <span ><b>Remove from favorites</b></span> */}
                             </div>
-                            ))}
+                            :
+                            <div className='d-flex align-items-center product-favorites'
+                            onClick={handleFavorite}
+                            >
+                                <AiOutlineHeart />
+                                {/* <span ><b>Add to favorites</b></span> */}
+                            </div>
+                            }
+                            
                         </div>
-                    </div>
-                    <div className='product-options-container'>
-                        <div className="quantity-selector">
-                        <button className="add-to-cart-btn" onClick={handleAddToCart}>
-                            Add to Cart
-                            <span></span>
-                        </button>
-                            <select className="quantity-select" value={quantity} onChange={handleQuantityChange}>
-                            {Array.from({ length: availableQuantity }, (_, index) => (
-                                <option key={index + 1} value={index + 1}>
-                                {index + 1}
-                                </option>
-                            ))}
-                            </select>
-                        
-                        
+                        <div class="signle-product-pricing">
+                            <span class="signle-product-new-price">{`${singleProduct&&singleProduct.price}MAD`}</span>
                         </div>
-                    </div>
-                    {/* <div>
-                        <b>About this item</b>
-                    </div> */}
-                </div>
-            </div>
-            <div className="single-product-grid-container">
-                <div className="single-product-grid-item">
+                        <div className='signle-product-sold'>
+                            <span>42 </span>
+                            <span>SOLD</span>
+                        </div>
                     
-                    <div className='single-product-comments'>
-                        <div className='single-product-comments'>
-                            <div className='single-product-comments-header'>
-                                <div className='single-product-comments-review'>
-                                    <b>review <span>{commentState.comments.length}</span></b>
-                                    <div>
-                                    
-                                        {/* {Array.from({length:averageRate}).map((e,i)=>(
-                                            <span key={i}><AiFillStar/></span>
-                                        ))} */}
-                                        <ReactStars  edit={false} count={5} size={25} value={averageRate} color2={'rgb(255, 166, 0)'} />                            
-                                    </div>
-                                </div>
-                                <div onClick={triggerComment} className='single-product-comments-addcomment'>
-                                    +Add your review
-                                </div>
-                            </div>
-                            <div className='comments-box-container bg-light' ref={divRef}>
-                                {
-                                commentState.comments.length>0 ? commentState.comments.map((e,i)=>(
-                                    <div key={i} className='single-product-comments-chat'>
-                                    <div className='single-product-user-comment'>
-                                        <img src={`${import.meta.env.VITE_SERVER_URL}/images/${e.user.image}`} alt="" />
-                                        <div>
-                                            <b>{e.user.name}{e.user.id}</b>
-                                            <div>{formatDate(e.created_at)}</div>
-                                        </div>
-                                    </div>
-                                    <div className='d-flex align-items-center'>
-                                        <div className='single-product-user-review'>
-                                            <div className='single-product-user-review-stars'>
-                                                {/* {Array.from({length:e.rate}).map((e,i)=>(
-                                                    <span key={i}><AiFillStar/></span>
-                                                ))} */}
-                                                <ReactStars  edit={false} count={5} size={25} value={e.rate} color2={'rgb(255, 166, 0)'} />                            
-                                            </div>
-                                            <div className='single-product-user-review-description'>
-                                                {e.content}
-                                            </div>
-                                        </div>
-                                        {userState.user.id===e.user.id&&
-                                        <div className='p-1 d-flex flex-column align-items-center h-100 justify-content-around'>    
-                                        <button
-                                         className="ms-3 fs-3 text-danger bg-transparent border-0"
-                                         onClick={()=>{editeComment(e.id)}}
-                                        >
-                                            <BiEdit />
-                                        </button>
-                                        <button
-                                         className="ms-3 fs-3 text-danger bg-transparent border-0"
-                                         onClick={() => showModal(e.id)}
-                                        >
-                                            <AiFillDelete  />
-                                        </button>
-                                        
-                                    </div>
-                                        }
-                                        
-                                    </div>
-                                    </div>
-                                ))
-                                :
-                                <div className='no-comment-container text-muted'>
-                                    <AiOutlineComment size={40}/> <span className='fw-bold fs-5 mx-2'>share your review</span>
-                                </div>
-                                }
-                                {/* {commentState.comments.map((e,i)=>)} */}
-                            </div>
-                            <div ref={specificDivRef}>
-                            {commentOpen && (
-                                <div >
-                                    <div className="form-comment-control">
-                                        <input className="input-comment input-comment-alt" 
-                                        placeholder="Add your comment here!" 
-                                        type="text" 
-                                        value={content}
-                                        onChange={handleComment}
-                                        />
-                                        <span className="input-comment-border input-comment-border-alt"></span>
-                                    </div>
-                                    <div className='d-flex align-items-center justify-content-between'>
-                                        <ReactStars  count={5} onChange={ratingChanged} size={25} value={rate} color2={'rgb(255, 166, 0)'} />                            
-                                        {commentState.signleComment?
-                                        <div>
-                                            <button className="comment-button text-danger bg-danger text-white border-white" onClick={cancleEditeComment}>
-                                                cancle
-                                            </button>
-                                            <button className="comment-button mx-2 " onClick={handleUpdate}>
-                                                Update comment
-                                            </button>              
-                                        </div>
-                                        :
-                                        <button className="comment-button" onClick={handleSubmit}>
-                                            Comment
-                                        </button>
-                                        }
-                                        {/* <button onClick={cancleEditeComment}>  cancle</button> */}
-                                        
-                                    </div>
-                                </div>
-                                
-                            )}
-
+                        <div className='product-options-container'>
+                            <span><b>Color:</b> {selectedColor}</span>
+                            <div className="color-options">
+                                {colors.length>0&&colors.map((color) => (
+                                <div
+                                    key={color}
+                                    className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                                    style={{ backgroundColor: color }}
+                                    onClick={() => handleColorSelection(color)}
+                                ></div>
+                                ))}
                             </div>
                         </div>
-
+                        <div className='product-options-container'>
+                            <span><b>Size:</b> {selectedSize}</span>
+                            <div className="size-options">
+                                {sizes.length>0 && sizes.map((size) => (
+                                <div
+                                    key={size}
+                                    className={`size-option ${selectedSize === size ? 'selected' : ''}`}
+                                    onClick={() => handleSizeSelection(size)}
+                                >
+                                    {size}
+                                </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className='product-options-container'>
+                            <div className="quantity-selector">
+                            <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                                Add to Cart
+                                <span></span>
+                            </button>
+                                <select className="quantity-select" value={quantity} onChange={handleQuantityChange}>
+                                {Array.from({ length: availableQuantity }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                    {index + 1}
+                                    </option>
+                                ))}
+                                </select>
+                            
+                            
+                            </div>
+                        </div>
+                        {/* <div>
+                            <b>About this item</b>
+                        </div> */}
                     </div>
                 </div>
-                <div className="single-product-grid-item">
-                    <b>About </b>
-                    <p>{singleProduct&&singleProduct.description}</p>
+                <div className="single-product-grid-container">
+                    <div className="single-product-grid-item">
+                        
+                        <div className='single-product-comments'>
+                            <div className='single-product-comments'>
+                                <div className='single-product-comments-header'>
+                                    <div className='single-product-comments-review'>
+                                        <b>review <span>{commentState.comments.length}</span></b>
+                                        <div>
+                                        
+                                            {/* {Array.from({length:averageRate}).map((e,i)=>(
+                                                <span key={i}><AiFillStar/></span>
+                                            ))} */}
+                                            <ReactStars  edit={false} count={5} size={25} value={averageRate} color2={'rgb(255, 166, 0)'} />                            
+                                        </div>
+                                    </div>
+                                    <div onClick={triggerComment} className='single-product-comments-addcomment'>
+                                        +Add your review
+                                    </div>
+                                </div>
+                                <div className='comments-box-container bg-light' ref={divRef}>
+                                    {
+                                    commentState.comments.length>0 ? commentState.comments.map((e,i)=>(
+                                        <div key={i} className='single-product-comments-chat'>
+                                        <div className='single-product-user-comment'>
+                                            <img src={`${import.meta.env.VITE_SERVER_URL}/images/${e.user.image}`} alt="" />
+                                            <div>
+                                                <b>{e.user.name}{e.user.id}</b>
+                                                <div>{formatDate(e.created_at)}</div>
+                                            </div>
+                                        </div>
+                                        <div className='d-flex align-items-center'>
+                                            <div className='single-product-user-review'>
+                                                <div className='single-product-user-review-stars'>
+                                                    {/* {Array.from({length:e.rate}).map((e,i)=>(
+                                                        <span key={i}><AiFillStar/></span>
+                                                    ))} */}
+                                                    <ReactStars  edit={false} count={5} size={25} value={e.rate} color2={'rgb(255, 166, 0)'} />                            
+                                                </div>
+                                                <div className='single-product-user-review-description'>
+                                                    {e.content}
+                                                </div>
+                                            </div>
+                                            {userState.user.id===e.user.id&&
+                                            <div className='p-1 d-flex flex-column align-items-center h-100 justify-content-around'>    
+                                            <button
+                                             className="ms-3 fs-3 text-danger bg-transparent border-0"
+                                             onClick={()=>{editeComment(e.id)}}
+                                            >
+                                                <BiEdit />
+                                            </button>
+                                            <button
+                                             className="ms-3 fs-3 text-danger bg-transparent border-0"
+                                             onClick={() => showModal(e.id)}
+                                            >
+                                                <AiFillDelete  />
+                                            </button>
+                                            
+                                        </div>
+                                            }
+                                            
+                                        </div>
+                                        </div>
+                                    ))
+                                    :
+                                    <div className='no-comment-container text-muted'>
+                                        <AiOutlineComment size={40}/> <span className='fw-bold fs-5 mx-2'>share your review</span>
+                                    </div>
+                                    }
+                                    {/* {commentState.comments.map((e,i)=>)} */}
+                                </div>
+                                <div ref={specificDivRef}>
+                                {commentOpen && (
+                                    <div >
+                                        <div className="form-comment-control">
+                                            <input className="input-comment input-comment-alt" 
+                                            placeholder="Add your comment here!" 
+                                            type="text" 
+                                            value={content}
+                                            onChange={handleComment}
+                                            />
+                                            <span className="input-comment-border input-comment-border-alt"></span>
+                                        </div>
+                                        <div className='d-flex align-items-center justify-content-between'>
+                                            <ReactStars  count={5} onChange={ratingChanged} size={25} value={rate} color2={'rgb(255, 166, 0)'} />                            
+                                            {commentState.signleComment?
+                                            <div>
+                                                <button className="comment-button text-danger bg-danger text-white border-white" onClick={cancleEditeComment}>
+                                                    cancle
+                                                </button>
+                                                <button className="comment-button mx-2 " onClick={handleUpdate}>
+                                                    Update comment
+                                                </button>              
+                                            </div>
+                                            :
+                                            <button className="comment-button" onClick={handleSubmit}>
+                                                Comment
+                                            </button>
+                                            }
+                                            {/* <button onClick={cancleEditeComment}>  cancle</button> */}
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                )}
+    
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div className="single-product-grid-item">
+                        <b>About </b>
+                        <p>{singleProduct&&singleProduct.description}</p>
+                    </div>
                 </div>
+                <SectionTitle title='YOU MAY LIKE'/>
+                <div className='popular-items'>
+                    {suggestionProduct&&suggestionProduct.map((e,i)=>(
+                        <ProductCard product={e}/>
+                    ))}
+                </div>
+    
+                <CustomAlert
+                    setOpen={setOpen}
+                    open={open}
+                    performAction={() => {
+                        deleteRecord(deleteId);
+                    }}
+                    title="Are you sure you want to delete this Product?"
+                />
             </div>
-            <SectionTitle title='YOU MAY LIKE'/>
-            <div className='popular-items'>
-                {suggestionProduct&&suggestionProduct.map((e,i)=>(
-                    <ProductCard product={e}/>
-                ))}
-            </div>
-
-            <CustomAlert
-                setOpen={setOpen}
-                open={open}
-                performAction={() => {
-                    deleteRecord(deleteId);
-                }}
-                title="Are you sure you want to delete this Product?"
-            />
-        </div>
-     );
+         );
+    }
+    
 }
  
 export default SingleProduct;

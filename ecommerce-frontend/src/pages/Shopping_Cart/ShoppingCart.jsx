@@ -94,7 +94,7 @@ const ShoppingCart = () => {
             src={`${import.meta.env.VITE_SERVER_URL}/storage/${item.image && item.image}`}
         />,
         quantity:item.quantity,
-        price:item.price,
+        // price:item.price,
         total:item.quantity*item.price,
         action: (
             <>

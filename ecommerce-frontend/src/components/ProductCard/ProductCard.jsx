@@ -4,7 +4,7 @@ import image from '../../assets/img.png'
 import { useNavigate } from 'react-router-dom';
 const ProductCard = (props) => {
 const {product}=props
-console.log(product)
+// console.log(product)
 const navigate=useNavigate()
 const handleSelect=()=>{
   navigate(`/products/${product.slug}/${product.id}`)
@@ -18,8 +18,8 @@ const handleSelect=()=>{
         <h2 className="product-title">{product.name}</h2>
         <div className='product-card-footer'>
           <div className="product-prices">  
-            <div className="old-price">${parseFloat(product.price).toFixed(2)}</div>
-            <div className="current-price">${parseFloat(product.price).toFixed(2)}</div>
+            <div className="old-price">{parseFloat(product.price).toFixed(2)}Dh</div>
+            <div className="current-price">{parseFloat(product.price).toFixed(2)}Dh</div>
           </div>
           <div className='add-to-cart-butto'>
             +Add to Basket

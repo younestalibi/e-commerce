@@ -34,8 +34,11 @@ import IndexLayout from './components/MainLayout/IndexLayout';
 import Test from './Test';
 import PaymentLayout from './components/MainLayout/PaymentLayout';
 import ViewOrder from './pages/Orders/ViewOrder/ViewOrder';
+import Loader from './components/Loader/Loader';
+import Register from './pages/Authentication/Register/Register';
 function App() {
-
+  const { user, isError, isSuccess, isLoading, getuser,message} = useSelector((state) => state.auth);
+  console.log(isLoading)
   const dispatch=useDispatch()
   useEffect(() => {
     // const fetchUserData =() => {
@@ -50,55 +53,62 @@ function App() {
 
     // fetchUserData();
   }, []);
-
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<IndexLayout />}>
-            <Route index element={<Home/>}/>
-            <Route path="/products" element={<SearchProductPage/>}/>
-            <Route path="/products/:slug/:id" element={<SingleProduct/>}/>
-            {/* <Route path="/shopping-cart" element={<ShoppingCart/>}/> */}
-            
-
-            <Route path="/" element={<PaymentLayout />}>      
-              <Route path='/shopping-cart' element={<ShoppingCart />} />
-              <Route path="/order-complete" element={<OrderComplete/>}/>
-              <Route path="/checkout" element={<Checkout/>}/>
+  console.log(isLoading && !isSuccess)
+  if(isLoading && !getuser){
+    return ( <Loader/>)
+  }
+  else if (isSuccess || getuser){
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<IndexLayout />}>
+              <Route index element={<Home/>}/>
+              <Route path="/products/:category?" element={<SearchProductPage/>}/>
+              <Route path="/products/:slug/:id" element={<SingleProduct/>}/>
+              {/* <Route path="/shopping-cart" element={<ShoppingCart/>}/> */}
+              
+  
+              <Route path="/" element={<PaymentLayout />}>      
+                <Route path='/shopping-cart' element={<ShoppingCart />} />
+                <Route path="/order-complete" element={<OrderComplete/>}/>
+                <Route path="/checkout" element={<Checkout/>}/>
+              </Route>
+  
+              
             </Route>
-
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            {/* <Route path="/cart" element={<Test />}></Route> */}
+            <Route path="/test" element={<Test />}></Route>
+  
             
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          {/* <Route path="/cart" element={<Test />}></Route> */}
-          <Route path="/test" element={<Test />}></Route>
-
-          
-
-          <Route path="/admin" element={<MainLayout />}>      
-            <Route index element={<Dashboard />} />
-            {/* <Route path="enquiries" element={<Enquiries />} /> */}
-            {/* <Route path="enquiries/:id" element={<ViewEnq />} /> */}
-            {/* <Route path="coupon-list" element={<Couponlist />} /> */}
-            {/* <Route path="coupon" element={<AddCoupon />} /> */}
-            {/* <Route path="coupon/:id" element={<AddCoupon />} /> */}
-            <Route path="list-orders" element={<OrdersList />} />
-            <Route path="view-order/:batch" element={<ViewOrder />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="list-categories" element={<CategoriesList />} />
-            <Route path="form-category/:id?" element={<FormCategory />} />
-            <Route path="list-brands" element={<BrandsList />} />
-            <Route path="form-brand/:id?" element={<Formbrand />} />
-            <Route path="list-products" element={<ProductsList />} />
-            <Route path="form-product/:id?" element={<AddProduct/>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  )
+  
+            <Route path="/admin" element={<MainLayout />}>      
+              <Route index element={<Dashboard />} />
+              {/* <Route path="enquiries" element={<Enquiries />} /> */}
+              {/* <Route path="enquiries/:id" element={<ViewEnq />} /> */}
+              {/* <Route path="coupon-list" element={<Couponlist />} /> */}
+              {/* <Route path="coupon" element={<AddCoupon />} /> */}
+              {/* <Route path="coupon/:id" element={<AddCoupon />} /> */}
+              <Route path="list-orders" element={<OrdersList />} />
+              <Route path="view-order/:batch" element={<ViewOrder />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="list-categories" element={<CategoriesList />} />
+              <Route path="form-category/:id?" element={<FormCategory />} />
+              <Route path="list-brands" element={<BrandsList />} />
+              <Route path="form-brand/:id?" element={<Formbrand />} />
+              <Route path="list-products" element={<ProductsList />} />
+              <Route path="form-product/:id?" element={<AddProduct/>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </div>
+    )
+  }
+  
 }
 
 export default App

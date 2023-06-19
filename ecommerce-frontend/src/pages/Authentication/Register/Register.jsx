@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './Login.css';
+import './Register.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../../Provider/Features/Auth/authSlice';
-import { Link, useNavigate } from 'react-router-dom';
-const Login = () => {
+// import { register } from '../../../Provider/Features/Auth/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { register } from '../../../Provider/Features/Auth/authSlice';
+const Register = () => {
   const navigate=useNavigate()
   const { user, isError, isSuccess, isLoading, message} = useSelector((state) => state.auth);
+  console.log(message)
   useEffect(() => {
     console.log(isSuccess,user)
     if (isSuccess && user) {
@@ -14,21 +16,35 @@ const Login = () => {
   }, [isSuccess,user]);
   const dispatch=useDispatch()
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('email', email);
+    formData.append('name', name);
     formData.append('password', password);
-    dispatch(login(formData))
+    dispatch(register(formData))
   };
 
   return (
-    <div className="login-container">
-      <div className="login-content">
-        <h2 className="login-title">Login</h2>
-        <form className="login-form" onSubmit={handleSubmit}>
+    <div className="register-container">
+      <div className="register-content">
+        <h2 className="register-title">Register</h2>
+        <form className="register-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              className={`${message.name&&'is-invalid'} `}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            {isError&&<span className='text-danger invalid-feedback'>{message.name}</span>}
+          </div>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -53,16 +69,16 @@ const Login = () => {
             />
             {isError&&<span className='invalid-feedback'>{message.password}</span>}
           </div>
-          <button type="submit" className="btn-login">Login</button>
+          <button type="submit" className="btn-register">Register</button>
         </form>
-        <div className="options">
-          {/* <a href="/" className="forgot-password">Forgot Password?</a> */}
+        {/* <div className="options">
+          <a href="/" className="forgot-password">Forgot Password?</a>
           <span className="divider">|</span>
-          <Link to="/register" className="register-link">Register</Link>
-        </div>
+          <a href="/" className="register-link">Register</a>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;

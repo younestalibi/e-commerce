@@ -11,9 +11,6 @@ axiosHttp.interceptors.request.use(
   // : null;
     config.headers.Authorization = `Bearer ${token}`;
     return config;
-  },
-  (error) => {
-    return Promise.reject(error);
   }
 );
 
@@ -25,8 +22,10 @@ axiosHttp.interceptors.response.use(
     const { response } = error;
     if (response && response.status === 401) {
       localStorage.removeItem('user');
+      // alert('hello wrold')
     }
-    return Promise.reject(error);
+    // return Promise.reject(error);
+    return error;
   }
 );
 
